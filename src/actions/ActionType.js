@@ -1,0 +1,12 @@
+// ActionType.js
+
+export const ADD_COUNTER = 'ADD_COUNTER';
+export const REMOVE_COUNTER = 'REMOVE_COUNTER';
+
+const ActionType = {
+  RECEIVE_NOTE: 'RECEIVE_NOTE',
+  FETCHING_NOTE_PENDING: 'FETCHING_NOTE_PENDING',
+  FETCHING_NOTE_REJECTED: 'FETCHING_NOTE_REJECTED'
+}
+
+export default ActionType;
