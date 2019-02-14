@@ -9,13 +9,16 @@ import AddCounter from '../containers/AddCounter';
 import RemoveCounter from '../containers/RemoveCounter';
 import HeaderBarContainer from '../containers/HeaderBarContainer';
 import HomeContainer from '../containers/HomeContainer';
+import LoginContainer from '../containers/LoginContainer';
 
 import UserContainer from '../containers/NoteContainer';
 
 const Home = () => (
   <div>
-    <UserContainer></UserContainer>
-    <HomeContainer></HomeContainer>
+    {/* <UserContainer></UserContainer> */}
+    {/* <HomeContainer></HomeContainer> */}
+    
+    <LoginContainer></LoginContainer>
   </div>
 )
 

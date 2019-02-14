@@ -4,7 +4,6 @@ let initState = {
   info: 'null'
 }
 const noteReducer = (state = initState, action) => {
-  console.log(state);
   switch (action.type) {
     case 'FETCHING_NOTE_PENDING':
       return Object.assign({}, state, {isFetchedNote: action.isFetchedNote, isFetchingNote: action.isFetchingNote})

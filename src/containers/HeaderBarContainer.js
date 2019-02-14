@@ -29,11 +29,11 @@ class HeaderBarContainer extends Component {
       <div className={styles.root}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <IconButton className={styles.menuButton} color="inherit" aria-label="Menu">
+          <IconButton color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit">
-            JZ-KB
+            Nebula
           </Typography>
         </Toolbar>
       </AppBar>

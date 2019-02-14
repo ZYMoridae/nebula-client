@@ -2,7 +2,7 @@
 
 import * as actionType from '../actions/ActionType';
 
-const counterReducer = (state = 0, action) => {
+const CounterReducer = (state = 0, action) => {
   let newState;
   switch (action.type) {
     case actionType.ADD_COUNTER:
@@ -14,4 +14,4 @@ const counterReducer = (state = 0, action) => {
   }
 }
 
-export default counterReducer;
+export default CounterReducer;

@@ -1,11 +1,13 @@
 // index.js
 
 import { combineReducers } from 'redux';
-import counterReducer from './counterReducer';
+import CounterReducer from './CounterReducer';
 import NoteReducer from './NoteReducer';
+import LoginReducer from './LoginReducer';
 
 const counterApp = combineReducers({
-  counterReducer,
+  CounterReducer,
+  LoginReducer,
   NoteReducer
 })
 

@@ -6,7 +6,11 @@ var config = {
     },
     devServer: {
        inline: true,
-       port: 3000
+       port: 3000,
+       hot: true,
+       proxy: {
+          '/api': 'http://localhost:8080/nebula'
+       }
     },
     module: {
        rules: [

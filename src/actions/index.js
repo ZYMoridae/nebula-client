@@ -1,5 +1,3 @@
-// index.js
-
 import * as actionType from './ActionType';
 
 export const addCounter = () => ({
@@ -8,9 +6,10 @@ export const addCounter = () => ({
 });
 
 export const removeCounter = () => ({
-    type: actionType.REMOVE_COUNTER,
-    payload: 1
-  });
+  type: actionType.REMOVE_COUNTER,
+  payload: 1
+});
 
 
 export * from './NoteActions';
+export * from './AuthActions';
