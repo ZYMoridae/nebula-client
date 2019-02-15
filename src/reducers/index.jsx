@@ -1,14 +1,14 @@
 // index.js
 
 import { combineReducers } from 'redux';
-import CounterReducer from './CounterReducer';
 import NoteReducer from './NoteReducer';
 import LoginReducer from './LoginReducer';
+import ProductsReducer from './ProductsReducer';
 
 const counterApp = combineReducers({
-  CounterReducer,
   LoginReducer,
-  NoteReducer
+  NoteReducer,
+  ProductsReducer
 })
 
 export default counterApp

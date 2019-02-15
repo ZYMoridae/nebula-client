@@ -6,9 +6,9 @@ import Login from '../components/Login';
 
 const mapStateToProps = state => {
   return {
-    info: state.info,
-    isFetchingAuth: state.isFetchingAuth,
-    isFetchedAuth: state.isFetchedAuth
+    info: state.LoginReducer.info,
+    isFetchingAuth: state.LoginReducer.isFetchingAuth,
+    isFetchedAuth: state.LoginReducer.isFetchedAuth
   }
 }
 

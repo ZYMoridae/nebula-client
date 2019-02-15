@@ -4,23 +4,28 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import Counter from '../containers/Counter';
-import AddCounter from '../containers/AddCounter';
-import RemoveCounter from '../containers/RemoveCounter';
 import HeaderBarContainer from '../containers/HeaderBarContainer';
 import HomeContainer from '../containers/HomeContainer';
 import LoginContainer from '../containers/LoginContainer';
 
 import UserContainer from '../containers/NoteContainer';
+import PrivateRoute from '../components/PrivateRoute';
+
+import ProductsContianer from '../containers/ProductsContainer';
 
 const Home = () => (
   <div>
-    {/* <UserContainer></UserContainer> */}
-    {/* <HomeContainer></HomeContainer> */}
-    
+    <UserContainer></UserContainer>
+    <HomeContainer></HomeContainer>
+  </div>
+)
+
+const Login = () => (
+  <div>
     <LoginContainer></LoginContainer>
   </div>
 )
+
 
 const About = () => (
   <div>
@@ -62,14 +67,26 @@ const Topics = ({ match }) => (
   </div>
 )
 
-const BasicExample = () => (
-  <Router>
-    <div>
-      <HeaderBarContainer></HeaderBarContainer>
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
-    </div>
-  </Router>
+const Products = () => (
+  <div>
+    <ProductsContianer></ProductsContianer>
+  </div>
 )
-export default BasicExample
+
+class App extends React.Component {
+
+  render() {
+    return (
+      <Router>
+        <div>
+            <HeaderBarContainer></HeaderBarContainer>
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/products" component={Products} />
+            <Route exact path="/login" component={Login}/>
+        </div>
+      </Router>
+    )
+  }
+}
+
+export default App;
