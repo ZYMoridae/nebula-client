@@ -52,6 +52,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 10,
     marginRight: theme.spacing.unit * 10,
     marginTop: theme.spacing.unit * 7,
+    marginBottom: theme.spacing.unit * 7
   }
 });
 
@@ -72,7 +73,7 @@ class Products extends Component {
           Array.isArray(info) ?
           info.map((product, index) => 
             <Grid item xs={4} key={index}>
-              <ProductItem>
+              <ProductItem product={product}>
 
               </ProductItem>
             </Grid>

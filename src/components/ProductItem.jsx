@@ -16,6 +16,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import logo from '../assets/img/nebula-01.jpg';
 
 const styles = theme => ({
   card: {
@@ -52,7 +53,7 @@ class ProductItem extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, product } = this.props;
 
     return (
       <Card className={classes.card}>
@@ -67,12 +68,12 @@ class ProductItem extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
+          title={product.name}
           subheader="September 14, 2016"
         />
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/paella.jpg"
+          image="https://i2.wp.com/respectfulinsolence.com/wp-content/uploads/2006/02/TomJerry.jpg?fit=1500%2C844&ssl=1"
           title="Paella dish"
         />
         <CardContent>

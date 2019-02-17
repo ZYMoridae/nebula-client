@@ -24,7 +24,6 @@ function callbackHandler(target, callback) {
 	return target
 }
 
-
 class Zjax {
 	request({url, option, successCallback, failureCallback}) {
 		if(!url || !option) {
@@ -49,6 +48,12 @@ class Zjax {
 			}
 		}
 		if(failureCallback && typeof failureCallback === 'function') {
+			_axios.catch((error) => {
+				if(error.response.status === 401) {
+					sessionStorage.removeItem('token');
+					location.href = '/login';
+				}
+			});
 			_axios.catch(failureCallback);
 		}
 		return _axios
