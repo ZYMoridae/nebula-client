@@ -16,7 +16,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
 import logo from '../assets/img/nebula-01.jpg';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
   card: {
@@ -42,6 +46,9 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  }
 });
 
 class ProductItem extends React.Component {
@@ -83,13 +90,18 @@ class ProductItem extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+          {/* <Button variant="contained" color="primary" className={classes.button}>
+            Add
+            <ShoppingCartIcon className={classes.rightIcon}/>
+          </Button> */}
+          {/* <IconButton aria-label="Add to favorites">
             <FavoriteIcon />
-          </IconButton>
+          </IconButton> */}
           <IconButton aria-label="Share">
             <ShareIcon />
           </IconButton>
-          <IconButton
+          
+          {/* <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
             })}
@@ -98,7 +110,7 @@ class ProductItem extends React.Component {
             aria-label="Show more"
           >
             <ExpandMoreIcon />
-          </IconButton>
+          </IconButton> */}
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>

@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import {
   Redirect
 } from 'react-router-dom';
+import Pagination from "material-ui-flat-pagination";
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   container: {
@@ -53,32 +55,66 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 10,
     marginTop: theme.spacing.unit * 7,
     marginBottom: theme.spacing.unit * 7
+  },
+  pagination: {
+    marginTop: theme.spacing.unit * 5,
+    textAlign: 'center'
+  },
+  productHeader: {
+    marginTop: theme.spacing.unit * 5,
+  },
+  prodcutContainer: {
+    marginTop: theme.spacing.unit * 2
   }
+
 });
 
 class Products extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { offset: 0 };
+  }
+
   componentDidMount() {
     const {fetchProductsInfo} = this.props;
     fetchProductsInfo();
   }
   
+  handleClick(offset) {
+    this.setState({ offset });
+  }
+
   render() {
     const {info, classes} = this.props;
-    console.log(info);
 
     return (
       <div className={classes.productsContainer}>
-        <Grid container spacing={32} direction="row">
+        <Grid item xs={12} className={classes.productHeader}>
+          <Typography variant="h4" gutterBottom>
+            Products
+          </Typography>
+        </Grid>
+        <Divider />
+        <Grid container spacing={32} direction="row" className={classes.prodcutContainer}>
         {
           Array.isArray(info) ?
           info.map((product, index) => 
-            <Grid item xs={4} key={index}>
+            <Grid item xs={3} key={index}>
               <ProductItem product={product}>
 
               </ProductItem>
             </Grid>
           ) : ''
         }
+        </Grid>
+        <Grid item xs={12} className={classes.pagination}>
+          <Pagination
+            limit={10}
+            offset={this.state.offset}
+            total={100}
+            centerRipple={true}
+            onClick={(e, offset) => this.handleClick(offset)}
+          />
         </Grid>
       </div>
     )

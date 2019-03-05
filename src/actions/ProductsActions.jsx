@@ -51,7 +51,7 @@ export const fetchProductsInfo = () => {
       url: '/api/products',
       option: Utils.addToken(options),
       successCallback: (response) => {
-        dispatch(receieveProducts(response.data));
+        dispatch(receieveProducts(response.data.results));
       },
       failureCallback: (error) => {
         dispatch(fetchingProductsError(error));
