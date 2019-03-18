@@ -34,7 +34,7 @@ import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
   container: {
-    padding: theme.spacing.unit * 5
+    paddingTop: theme.spacing.unit * 5
   },
   priceCaption: {
     color: '#B12704',
@@ -89,13 +89,25 @@ class ProductInfo extends Component {
 
     console.log(info);
 
+    let maxQuantity = 20;
+
+    if(info.unitsInStock != undefined && info.unitsInStock > 0 && info.unitsInStock < 20) {
+      maxQuantity = info.unitsInStock;
+    }
+
+    let quantityArray = [...Array(maxQuantity).keys()].map(item => ++item);
+
+    console.log(quantityArray);
     return (
       <div>
          <Grid container className={classes.container}>
-            <Grid item xs={6}>
+            <Grid item xs={2}>
+
+            </Grid>
+            <Grid item xs={4}>
               <Image imageStyle={{width: '100%', height: 'inherit'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <div className={classes.metaContainer}>
                 <Typography variant="h5" gutterBottom>
                   {_.capitalize(info.name)}
@@ -126,13 +138,11 @@ class ProductInfo extends Component {
                         />
                       }
                     >
-                      {/* <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem> */}
-
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
+                    {
+                      quantityArray.map((item, index) => 
+                        <MenuItem key={index} value={item}>{item}</MenuItem>
+                      )
+                    }
                     </Select>
                   </FormControl>
                 </div>
@@ -149,6 +159,9 @@ class ProductInfo extends Component {
                   </Button>
                 </div>
               </div>
+            </Grid>
+            <Grid item xs={2}>
+
             </Grid>
          </Grid>
 

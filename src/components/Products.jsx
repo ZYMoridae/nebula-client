@@ -16,6 +16,7 @@ import {
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   container: {
