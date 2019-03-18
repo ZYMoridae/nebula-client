@@ -53,6 +53,9 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  }
 });
 
 class ProductItem extends React.Component {
@@ -93,13 +96,18 @@ class ProductItem extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+          {/* <Button variant="contained" color="primary" className={classes.button}>
+            Add
+            <ShoppingCartIcon className={classes.rightIcon}/>
+          </Button> */}
+          {/* <IconButton aria-label="Add to favorites">
             <FavoriteIcon />
-          </IconButton>
+          </IconButton> */}
           <IconButton aria-label="Share">
             <ShareIcon />
           </IconButton>
-          <IconButton
+          
+          {/* <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
             })}
@@ -108,7 +116,7 @@ class ProductItem extends React.Component {
             aria-label="Show more"
           >
             <ExpandMoreIcon />
-          </IconButton>
+          </IconButton> */}
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>

@@ -55,7 +55,19 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 10,
     marginRight: theme.spacing.unit * 10,
     marginTop: theme.spacing.unit * 7,
+    marginBottom: theme.spacing.unit * 7
+  },
+  pagination: {
+    marginTop: theme.spacing.unit * 5,
+    textAlign: 'center'
+  },
+  productHeader: {
+    marginTop: theme.spacing.unit * 5,
+  },
+  prodcutContainer: {
+    marginTop: theme.spacing.unit * 2
   }
+
 });
 
 class Products extends Component {
@@ -102,7 +114,13 @@ class Products extends Component {
 
     return (
       <div className={classes.productsContainer}>
-        <Grid container spacing={32} direction="row">
+        <Grid item xs={12} className={classes.productHeader}>
+          <Typography variant="h4" gutterBottom>
+            Products
+          </Typography>
+        </Grid>
+        <Divider />
+        <Grid container spacing={32} direction="row" className={classes.prodcutContainer}>
         {
           Array.isArray(info) ?
           info.map((product, index) => 

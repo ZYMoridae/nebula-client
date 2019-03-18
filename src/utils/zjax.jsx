@@ -24,7 +24,6 @@ function callbackHandler(target, callback) {
 	return target
 }
 
-
 class Zjax {
 	static request({url, option, successCallback, failureCallback}) {
 		if(!url || !option) {
