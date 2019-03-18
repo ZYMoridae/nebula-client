@@ -19,7 +19,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "lodash": "^4.17.11",
     "material-ui": "^1.0.0-beta.47",
+    "material-ui-flat-pagination": "^3.2.0",
+    "material-ui-image": "^3.1.0",
     "react": "^16.4.2",
     "react-cookie": "^3.0.8",
     "react-dom": "^16.4.2",
@@ -30,6 +33,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "stripe": "^6.27.0",
     "typeface-roboto": "0.0.54",
     "webpack": "^4.16.5",
     "webpack-dev-server": "^3.1.5"

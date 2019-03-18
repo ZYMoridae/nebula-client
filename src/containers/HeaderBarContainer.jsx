@@ -118,6 +118,7 @@ class PrimarySearchAppBar extends React.Component {
 
     this.handleLogout = () => {
       sessionStorage.removeItem('user');
+      sessionStorage.removeItem('token');
       location.href = '/login';
     }
   }

@@ -8,15 +8,16 @@ const mapStateToProps = state => {
   return {
     info: state.ProductsReducer.info,
     isFetchingProducts: state.ProductsReducer.isFetchingProducts,
-    isFetchedProducts: state.ProductsReducer.isFetchedProducts
+    isFetchedProducts: state.ProductsReducer.isFetchedProducts,
+    totalPages: state.ProductsReducer.totalPages
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     dispatch,
-    fetchProductsInfo: () => {
-      dispatch(fetchProductsInfo());
+    fetchProductsInfo: (page, perPage, orderBy) => {
+      dispatch(fetchProductsInfo(page, perPage, orderBy));
     }
   }
 }

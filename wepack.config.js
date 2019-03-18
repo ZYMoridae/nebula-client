@@ -1,8 +1,10 @@
+const path = require('path');
 var config = {
     entry: './main.js',
     output: {
-       path:'/',
-       filename: 'index.js',
+      filename: 'bundle.js',
+      path: path.resolve('dist'),
+      publicPath: '/'
     },
     devServer: {
        inline: true,

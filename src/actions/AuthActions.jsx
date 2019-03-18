@@ -1,7 +1,7 @@
 import Zjax from '../utils/zjax';
 import ActionType from './ActionType';
 
-var zjax = new Zjax();
+// var zjax = new Zjax();
 
 // -------- User Actions ----------
 export const receieveAuth = (json) => {
@@ -9,6 +9,7 @@ export const receieveAuth = (json) => {
     type: ActionType.AUTH_SUCCESS,
     isFetchingAuth: false,
     isFetchedAuth: true,
+    isShowLoginError: false,
     info: json,
     receivedAt: Date.now()
   }
@@ -19,7 +20,8 @@ export const fetchingAuth = (option, json) => {
     type: ActionType.AUTH_PENDING,
     option: option,
     isFetchingAuth: true,
-    isFetchedAuth: false
+    isFetchedAuth: false,
+    isShowLoginError: false
   }
 }
 
@@ -27,10 +29,17 @@ export const fetchingAuthError = (err) => {
   return {
     type: ActionType.AUTH_FAIL,
     isFetchingAuth: false,
-    isFetchedAuth: true
+    isFetchedAuth: true,
+    isShowLoginError: true
   }
 }
 
+export const hideLoginError = () => {
+  return {
+    type: ActionType.HIDE_ERROR,
+    isShowLoginError: false
+  }
+}
 
 export const fetchAuthInfo = (data) => {
   return function (dispatch) {
@@ -40,7 +49,7 @@ export const fetchAuthInfo = (data) => {
       headers = data.headers;
     }
     delete data.headers;
-    zjax.request({
+    Zjax.request({
       url: '/api/auth',
       option: {
         method: 'post',

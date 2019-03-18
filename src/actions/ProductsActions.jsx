@@ -2,15 +2,16 @@ import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
 
-var zjax = new Zjax();
+// var zjax = new Zjax();
 
 // -------- User Actions ----------
-export const receieveProducts = (json) => {
+export const receieveProducts = (results, totalPages) => {
   return {
     type: ActionType.RECEIVE_PRODUCTS,
     isFetchingProducts: false,
     isFetchedProducts: true,
-    info: json,
+    info: results,
+    totalPages: totalPages,
     receivedAt: Date.now()
   }
 }
@@ -33,7 +34,7 @@ export const fetchingProductsError = (err) => {
 }
 
 
-export const fetchProductsInfo = () => {
+export const fetchProductsInfo = (page, perPage, orderBy) => {
   return function (dispatch) {
     dispatch(fetchingProducts());
 
@@ -47,11 +48,11 @@ export const fetchProductsInfo = () => {
     // console.log(Utils.addToken(options));
 
     // delete data.headers;
-    zjax.request({
-      url: '/api/products',
+    Zjax.request({
+      url: `/api/products?page_num=${page}&per_page=${perPage}&order_by=${orderBy}`,
       option: Utils.addToken(options),
       successCallback: (response) => {
-        dispatch(receieveProducts(response.data));
+        dispatch(receieveProducts(response.data.results, response.data.totalPages));
       },
       failureCallback: (error) => {
         dispatch(fetchingProductsError(error));

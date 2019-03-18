@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import {
   Redirect
 } from 'react-router-dom';
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import Pagination from "material-ui-flat-pagination";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const styles = theme => ({
   container: {
@@ -56,14 +59,46 @@ const styles = theme => ({
 });
 
 class Products extends Component {
-  componentDidMount() {
-    const {fetchProductsInfo} = this.props;
-    fetchProductsInfo();
+  constructor(props) {
+    super(props);
+    this.state = { offset: 0 };
   }
-  
+
+  componentDidMount() {
+    const {fetchProductsInfo, page, perPage, orderBy} = this.props;
+    let currentOffset = (page - 1) * perPage;
+    this.handleClick(currentOffset);
+    fetchProductsInfo(page, perPage, orderBy);
+  }
+
+  updateUrlParmas(page, perPage, orderBy) {
+    if (history.pushState) {
+        let url = `${window.location.protocol}//${window.location.host}${window.location.pathname}?page=${page}&perPage=${perPage}&orderBy=${orderBy}`;
+        window.history.pushState({
+          path: url
+        }, '', url);
+    }
+  }
+
+  handleClick(offset) {
+    const {perPage, orderBy, fetchProductsInfo} = this.props; 
+    let page = (offset / this.props.perPage) + 1;
+    this.setState({ offset });
+    this.updateUrlParmas(page, perPage, orderBy);
+    fetchProductsInfo(page, perPage, orderBy);
+  }
   render() {
-    const {info, classes} = this.props;
-    console.log(info);
+
+    const {info, classes, perPage, totalPages, page} = this.props;
+
+    const theme = createMuiTheme({
+      typography: {
+        useNextVariants: true,
+      },
+    });
+    // console.log(totalPages);
+
+
 
     return (
       <div className={classes.productsContainer}>
@@ -72,13 +107,24 @@ class Products extends Component {
           Array.isArray(info) ?
           info.map((product, index) => 
             <Grid item xs={4} key={index}>
-              <ProductItem>
+              <ProductItem product={product}>
 
               </ProductItem>
             </Grid>
           ) : ''
         }
         </Grid>
+        <div>
+          <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+            <Pagination
+              limit={perPage}
+              offset={this.state.offset}
+              total={totalPages * perPage}
+              onClick={(e, offset) => this.handleClick(offset)}
+            />
+          </MuiThemeProvider>
+        </div>
       </div>
     )
   }

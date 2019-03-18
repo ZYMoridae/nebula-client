@@ -15,7 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import {
   Redirect
 } from 'react-router-dom'
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MySnackbarContent from './MySnackbarContent';
 
 const styles = theme => ({
   container: {
@@ -74,10 +75,15 @@ class Login extends Component {
         }
       }));
     }
+
   }
   
   render() {
-    const {isFetchedAuth, classes, info} = this.props;
+    const {isFetchedAuth, classes, info, hideLoginError, isShowLoginError} = this.props;
+
+    if(sessionStorage.getItem('token') != null && sessionStorage.getItem != 'undefined') {
+      location.href = '/';
+    }
 
     if(isFetchedAuth) {
       sessionStorage.setItem('token', this.props.info.token);
@@ -86,9 +92,25 @@ class Login extends Component {
 
     return (
       <div className="Post">
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={isShowLoginError}
+          autoHideDuration={1500}
+          onClose={hideLoginError}
+        >
+          <MySnackbarContent
+            onClose={hideLoginError}
+            variant="error"
+            message="Login Failed!"
+          />
+        </Snackbar>
+
         <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
           
-          <Grid container spacing={16} alignItems="center" justify="center" direction="row">
+          <Grid container alignItems="center" justify="center" direction="row">
             <Paper className={classes.loginContainer}>
               <Grid item xs={12}>
                 <Typography variant="h5" gutterBottom>

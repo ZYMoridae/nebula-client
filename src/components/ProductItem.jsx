@@ -16,6 +16,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import _ from 'lodash';
 
 const styles = theme => ({
   card: {
@@ -35,6 +36,17 @@ const styles = theme => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
+  priceCaption: {
+    color: '#B12704'
+  },
+  productItemLink: {
+    textDecoration: 'none',
+    transition: 'all 0.3s',
+    '&:hover': {
+      color: 'orange',
+      transition: 'all 0.3s'
+    }
+  },
   expandOpen: {
     transform: 'rotate(180deg)',
   },
@@ -52,33 +64,32 @@ class ProductItem extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, product } = this.props;
 
     return (
       <Card className={classes.card}>
         <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar}>
-              R
-            </Avatar>
+          title={
+            <a className={classes.productItemLink} href={`/products/${product.id}`}>
+              <Typography variant="h6" className={classes.productItemLink} color="primary" gutterBottom>
+                {_.capitalize(product.name)}
+              </Typography>
+            </a>
           }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
+          subheader={
+            <Typography variant="caption" gutterBottom>
+              by {product.vendor.username}
+            </Typography>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
         />
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/paella.jpg"
+          image="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"
           title="Paella dish"
         />
         <CardContent>
-          <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          <Typography variant="subtitle2" className={classes.priceCaption} gutterBottom>
+              ${product.price}
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>

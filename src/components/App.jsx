@@ -11,8 +11,9 @@ import LoginContainer from '../containers/LoginContainer';
 import UserContainer from '../containers/NoteContainer';
 import PrivateRoute from '../components/PrivateRoute';
 
-import ProductsContianer from '../containers/ProductsContainer';
+import ProductsContainer from '../containers/ProductsContainer';
 
+import ProductInfoContainer from '../containers/ProductInfoContainer';
 const Home = () => (
   <div>
     <UserContainer></UserContainer>
@@ -67,11 +68,41 @@ const Topics = ({ match }) => (
   </div>
 )
 
-const Products = () => (
-  <div>
-    <ProductsContianer></ProductsContianer>
-  </div>
-)
+const Products = () => {
+  let params = new URLSearchParams(window.location.search);
+  let page = 1,
+      perPage = 9,
+      orderBy = 'name',
+      userPage = params.get("page"),
+      userPerPage = params.get("perPage"),
+      userOrderBy = params.get("orderBy");
+
+  if(userPage != undefined) {
+    page = parseInt(userPage);
+  }
+
+  if(userPerPage != undefined) {
+    perPage = parseInt(userPerPage);
+  }
+  
+  if(userOrderBy != undefined) {
+    orderBy = userOrderBy;
+  }
+
+  return (
+    <div>
+      <ProductsContainer page={page} perPage={perPage} orderBy={orderBy}></ProductsContainer>
+    </div>
+  )
+}
+
+const ProductInfo = ({match}) => {
+  return (
+    <div>
+      <ProductInfoContainer productId={match.params.id}></ProductInfoContainer>
+    </div>
+  )
+}
 
 class App extends React.Component {
 
@@ -82,6 +113,8 @@ class App extends React.Component {
             <HeaderBarContainer></HeaderBarContainer>
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/products" component={Products} />
+            <PrivateRoute exact path="/products/:id" component={ProductInfo} />
+
             <Route exact path="/login" component={Login}/>
         </div>
       </Router>
