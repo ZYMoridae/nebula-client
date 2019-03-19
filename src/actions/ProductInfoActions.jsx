@@ -2,9 +2,56 @@ import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
 
-// var zjax = new Zjax();
 
-// -------- User Actions ----------
+export const addCartItemSuccess = (result) => {
+  return {
+    type: ActionType.ADD_CART_ITEM_FULLFILLED,
+    isAddingCartItem: false,
+    isAddedCartItem: true,
+    info: result,
+    addedAt: Date.now()
+  }
+}
+
+export const addingCartItem = () => {
+  return {
+    type: ActionType.ADD_CART_ITEM_PENDING,
+    isAddingCartItem: true,
+    isAddedCartItem: false
+  }
+}
+
+export const addingCartItemError = (err) => {
+  return {
+    type: ActionType.ADD_CART_ITEM_REJECTED,
+    isAddingCartItem: false,
+    isAddedCartItem: true
+  }
+}
+
+export const addCartItem = (productInfo) => {
+  return function (dispatch) {
+    dispatch(addingCartItem());
+
+    let options = {
+      method: 'post',
+      data: productInfo
+    };
+
+    Zjax.request({
+      url: `/api/cart-items`,
+      option: Utils.addToken(options),
+      successCallback: (response) => {
+        dispatch(addCartItemSuccess(response.data));
+      },
+      failureCallback: (error) => {
+        dispatch(addingCartItemError(error));
+      }
+    });
+  }
+}
+
+// -------- ProductInfo Actions ----------
 export const receieveProductInfo = (result) => {
   return {
     type: ActionType.RECEIVE_PRODUCT_INFO,
@@ -15,10 +62,9 @@ export const receieveProductInfo = (result) => {
   }
 }
 
-export const fetchingProductInfo = (option, json) => {
+export const fetchingProductInfo = () => {
   return {
     type: ActionType.FETCHING_PRODUCT_INFO_PENDING,
-    option: option,
     isFetchingProductInfo: true,
     isFetchedProductInfo: false
   }
@@ -37,16 +83,10 @@ export const fetchProductInfo = (productId) => {
   return function (dispatch) {
     dispatch(fetchingProductInfo());
 
-    // if(data.headers) {
-    //   headers = data.headers;
-    // }
     let options = {
       method: 'get'
     };
-    
-    // console.log(Utils.addToken(options));
 
-    // delete data.headers;
     Zjax.request({
       url: `/api/products/${productId}`,
       option: Utils.addToken(options),

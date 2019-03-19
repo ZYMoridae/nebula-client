@@ -17,6 +17,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import _ from 'lodash';
+import Image from 'material-ui-image';
 
 const styles = theme => ({
   card: {

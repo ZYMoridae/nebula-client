@@ -31,6 +31,13 @@ var config = {
              }
           },
           {
+            test: /\.css$/,
+            use: [
+                {loader: "style-loader"},
+                {loader: "css-loader"}
+            ]
+          },          
+          {
             test: /\.(jpg|png)$/,
             use: {
               loader: "url-loader",
@@ -38,6 +45,25 @@ var config = {
                 limit: 25000,
               },
             }
+          },
+          {
+            test: /\.(png|jpg|gif)$/,
+            use: [
+              {
+                loader: 'file-loader',
+                options: {},
+              },
+            ],
+          },
+          {
+            test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                }
+            }]
           },
           {
             test: /\.(jpg|png)$/,

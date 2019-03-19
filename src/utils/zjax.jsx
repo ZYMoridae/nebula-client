@@ -54,7 +54,7 @@ class Zjax {
 
 				if(error.response.status == 401) {
 					sessionStorage.removeItem('token');
-					// location.href = '/login';
+					location.href = '/login';
 				}
 			});
 			_axios.catch(failureCallback);

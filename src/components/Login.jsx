@@ -81,11 +81,11 @@ class Login extends Component {
   render() {
     const {isFetchedAuth, classes, info, hideLoginError, isShowLoginError} = this.props;
 
-    if(sessionStorage.getItem('token') != null && sessionStorage.getItem != 'undefined') {
+    if(sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != 'undefined') {
       location.href = '/';
     }
 
-    if(isFetchedAuth) {
+    if(isFetchedAuth && this.props.info.token != undefined) {
       sessionStorage.setItem('token', this.props.info.token);
       location.href = '/';
     }
