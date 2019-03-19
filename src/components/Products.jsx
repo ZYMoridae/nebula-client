@@ -55,15 +55,11 @@ const styles = theme => ({
   productsContainer: {
     marginLeft: theme.spacing.unit * 10,
     marginRight: theme.spacing.unit * 10,
-    marginTop: theme.spacing.unit * 7,
     marginBottom: theme.spacing.unit * 7
   },
   pagination: {
     marginTop: theme.spacing.unit * 5,
     textAlign: 'center'
-  },
-  productHeader: {
-    marginTop: theme.spacing.unit * 5,
   },
   prodcutContainer: {
     marginTop: theme.spacing.unit * 2
@@ -111,39 +107,50 @@ class Products extends Component {
     });
     // console.log(totalPages);
 
-
-
     return (
       <div className={classes.productsContainer}>
-        <Grid item xs={12} className={classes.productHeader}>
-          <Typography variant="h4" gutterBottom>
-            Products
-          </Typography>
-        </Grid>
-        <Divider />
-        <Grid container spacing={32} direction="row" className={classes.prodcutContainer}>
-        {
-          Array.isArray(info) ?
-          info.map((product, index) => 
-            <Grid item xs={4} key={index}>
-              <ProductItem product={product}>
 
-              </ProductItem>
+              
+        <Grid container spacing={32} direction="row" className={classes.prodcutContainer}>       
+          <Grid item xs={1} lg={2}></Grid>
+          <Grid item xs={10} lg={8}>
+            <Grid container spacing={32} direction="row">
+            <Grid item xs={12}>
+                <Typography variant="h4" gutterBottom>
+                  Products
+                </Typography>
+                <Divider />
+              </Grid>
+               
+              {
+                Array.isArray(info) ?
+                info.map((product, index) => 
+                  <Grid item xs={6} sm={6} lg={4} key={index}>
+                    <ProductItem product={product}>
+
+                    </ProductItem>
+                  </Grid>
+                ) : ''
+              }
+              <Grid item xs={12} alignContent='center'>
+                <div>
+                  <MuiThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Pagination
+                      limit={perPage}
+                      offset={this.state.offset}
+                      total={totalPages * perPage}
+                      onClick={(e, offset) => this.handleClick(offset)}
+                    />
+                  </MuiThemeProvider>
+                </div>
+              </Grid>
             </Grid>
-          ) : ''
-        }
+
+          </Grid>
+          <Grid item xs={1} lg={2}></Grid>
         </Grid>
-        <div>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <Pagination
-              limit={perPage}
-              offset={this.state.offset}
-              total={totalPages * perPage}
-              onClick={(e, offset) => this.handleClick(offset)}
-            />
-          </MuiThemeProvider>
-        </div>
+
       </div>
     )
   }

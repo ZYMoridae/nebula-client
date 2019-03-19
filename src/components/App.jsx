@@ -71,7 +71,7 @@ const Topics = ({ match }) => (
 const Products = () => {
   let params = new URLSearchParams(window.location.search);
   let page = 1,
-      perPage = 9,
+      perPage = 12,
       orderBy = 'name',
       userPage = params.get("page"),
       userPerPage = params.get("perPage"),
