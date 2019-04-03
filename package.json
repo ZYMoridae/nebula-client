@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack-dev-server --hot --port 3000 --config wepack.config.js",
     "build": "webpack --config wepack.config.js"
   },
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "cors": "^2.8.5",
+    "jest": "^24.7.0",
     "webpack-cli": "^3.1.0"
   }
 }
