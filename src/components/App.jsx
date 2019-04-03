@@ -4,20 +4,29 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import Counter from '../containers/Counter';
-import AddCounter from '../containers/AddCounter';
-import RemoveCounter from '../containers/RemoveCounter';
 import HeaderBarContainer from '../containers/HeaderBarContainer';
 import HomeContainer from '../containers/HomeContainer';
+import LoginContainer from '../containers/LoginContainer';
 
 import UserContainer from '../containers/NoteContainer';
+import PrivateRoute from '../components/PrivateRoute';
 
+import ProductsContainer from '../containers/ProductsContainer';
+
+import ProductInfoContainer from '../containers/ProductInfoContainer';
 const Home = () => (
   <div>
     <UserContainer></UserContainer>
     <HomeContainer></HomeContainer>
   </div>
 )
+
+const Login = () => (
+  <div>
+    <LoginContainer></LoginContainer>
+  </div>
+)
+
 
 const About = () => (
   <div>
@@ -59,14 +68,57 @@ const Topics = ({ match }) => (
   </div>
 )
 
-const BasicExample = () => (
-  <Router>
+const Products = () => {
+  let params = new URLSearchParams(window.location.search);
+  let page = 1,
+      perPage = 12,
+      orderBy = 'name',
+      userPage = params.get("page"),
+      userPerPage = params.get("perPage"),
+      userOrderBy = params.get("orderBy");
+
+  if(userPage != undefined) {
+    page = parseInt(userPage);
+  }
+
+  if(userPerPage != undefined) {
+    perPage = parseInt(userPerPage);
+  }
+  
+  if(userOrderBy != undefined) {
+    orderBy = userOrderBy;
+  }
+
+  return (
     <div>
-      <HeaderBarContainer></HeaderBarContainer>
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
+      <ProductsContainer page={page} perPage={perPage} orderBy={orderBy}></ProductsContainer>
     </div>
-  </Router>
-)
-export default BasicExample
+  )
+}
+
+const ProductInfo = ({match}) => {
+  return (
+    <div>
+      <ProductInfoContainer productId={match.params.id}></ProductInfoContainer>
+    </div>
+  )
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div>
+            <HeaderBarContainer></HeaderBarContainer>
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/products" component={Products} />
+            <PrivateRoute exact path="/products/:id" component={ProductInfo} />
+
+            <Route exact path="/login" component={Login}/>
+        </div>
+      </Router>
+    )
+  }
+}
+
+export default App;

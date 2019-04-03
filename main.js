@@ -4,8 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import App from './src/components/App.jsx';
-import reducer from './src/reducers';
+import App from './src/components/App';
 
 import configureStore from './src/store/configureStore';
 
