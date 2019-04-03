@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --port 3000 --config ./wepack.config.js --mode development"
+    "test": "jest",
+    "start": "webpack-dev-server --hot --port 3000 --config wepack.config.js",
+    "build": "webpack --config wepack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -45,8 +46,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "cors": "^2.8.5",
+<<<<<<< HEAD
     "file-loader": "^3.0.1",
     "url-loader": "^1.1.2",
+=======
+    "jest": "^24.7.0",
+>>>>>>> master
     "webpack-cli": "^3.1.0"
   }
 }
