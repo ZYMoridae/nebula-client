@@ -24,9 +24,8 @@ function callbackHandler(target, callback) {
 	return target
 }
 
-
 class Zjax {
-	request({url, option, successCallback, failureCallback}) {
+	static request({url, option, successCallback, failureCallback}) {
 		if(!url || !option) {
 			return
 		}
@@ -49,6 +48,15 @@ class Zjax {
 			}
 		}
 		if(failureCallback && typeof failureCallback === 'function') {
+			// Handle 401 error
+			
+			_axios.catch((error) => {
+
+				if(error.response.status == 401) {
+					sessionStorage.removeItem('token');
+					location.href = '/login';
+				}
+			});
 			_axios.catch(failureCallback);
 		}
 		return _axios

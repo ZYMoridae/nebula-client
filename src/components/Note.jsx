@@ -7,9 +7,9 @@ import {
 export default class User extends Component {
   componentDidMount() {
     const {info} = this.props;
-    this.props.dispatch(fetchNoteInfo({
+    // this.props.dispatch(fetchNoteInfo({
 
-    }));
+    // }));
   }
 
   render() {
