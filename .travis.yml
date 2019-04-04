@@ -9,3 +9,10 @@ cache:
     - node_modules
 script:
   - npm test
+
+notifications:
+  emails:
+    recipients:  
+    - ashzhouyue@gmail.com  
+    on_success: always  
+    on_failure: always  
