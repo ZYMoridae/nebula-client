@@ -14,7 +14,7 @@ var config = {
        https: false,
        historyApiFallback: true,
        proxy: {
-          '/api': 'http://localhost:8090/api'
+          '/api': 'http://localhost:8090'
        }
     },
     module: {

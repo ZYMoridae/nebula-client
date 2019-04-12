@@ -14,6 +14,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import ProductsContainer from '../containers/ProductsContainer';
 
 import ProductInfoContainer from '../containers/ProductInfoContainer';
+
 const Home = () => (
   <div>
     <UserContainer></UserContainer>
@@ -110,6 +111,7 @@ class App extends React.Component {
       <Router>
         <div>
             <HeaderBarContainer></HeaderBarContainer>
+            
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/products" component={Products} />
             <PrivateRoute exact path="/products/:id" component={ProductInfo} />

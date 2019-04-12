@@ -50,7 +50,7 @@ export const fetchAuthInfo = (data) => {
     }
     delete data.headers;
     Zjax.request({
-      url: '/api/auth',
+      url: '/api/auth/signin',
       option: {
         method: 'post',
         data: data,

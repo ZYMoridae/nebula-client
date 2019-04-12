@@ -1,3 +1,5 @@
+import ActionType from '../actions/ActionType';
+
 let initState = {
   isFetchingProducts: false,
   isFetchedProducts: false,
@@ -6,20 +8,20 @@ let initState = {
 }
 const productsReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'FETCHING_PRODUCTS_REJECTED':
+    case ActionType.FETCHING_PRODUCTS_REJECTED:
       return Object.assign({}, state, {
-        isFetchedProducts: action.isFetchedProducts, 
+        isFetchedProducts: action.isFetchedProducts,
         isFetchingProducts: action.isFetchingProducts
       })
-    case 'FETCHING_PRODUCTS_PENDING':
+    case ActionType.FETCHING_PRODUCTS_PENDING:
       return Object.assign({}, state, {
-        isFetchedProducts: action.isFetchedProducts, 
+        isFetchedProducts: action.isFetchedProducts,
         isFetchingProducts: action.isFetchingProducts
       })
-    case 'RECEIVE_PRODUCTS':
+    case ActionType.RECEIVE_PRODUCTS:
       return Object.assign({}, state, {
-        isFetchedProducts: action.isFetchedProducts, 
-        isFetchingProducts: action.isFetchingProducts, 
+        isFetchedProducts: action.isFetchedProducts,
+        isFetchingProducts: action.isFetchingProducts,
         info: action.info,
         totalPages: action.totalPages
       })
