@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { 
   fetchProductInfo,
-  addCartItem
+  addCartItem,
+  hideSuccessToast
 } from '../actions/ProductInfoActions';
 import ProductInfo from '../components/ProductInfo';
 
@@ -12,6 +13,7 @@ const mapStateToProps = state => {
     isFetchedProductInfo: state.ProductInfoReducer.isFetchedProductInfo,
     isAddedCartItem: state.ProductInfoReducer.isAddedCartItem,
     isAddingCartItem: state.ProductInfoReducer.isAddingCartItem,
+    isShowSuccessToast: state.ProductInfoReducer.isShowSuccessToast
   }
 }
 
@@ -23,6 +25,9 @@ const mapDispatchToProps = dispatch => {
     },
     addCartItem: (productInfo) => {
       dispatch(addCartItem(productInfo));
+    },
+    hideSuccessToast: () => {
+      dispatch(hideSuccessToast());
     }
   }
 }

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { 
+import {
   fetchNoteInfo
 } from '../actions';
 import User from '../components/Note';

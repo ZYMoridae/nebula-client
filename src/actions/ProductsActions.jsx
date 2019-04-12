@@ -49,10 +49,11 @@ export const fetchProductsInfo = (page, perPage, orderBy) => {
 
     // delete data.headers;
     Zjax.request({
-      url: `/api/products?page_num=${page}&per_page=${perPage}&order_by=${orderBy}`,
+      url: `/api/products?page=${page-1}&size=${perPage}&sort=${orderBy}&keyword`,
       option: Utils.addToken(options),
       successCallback: (response) => {
-        dispatch(receieveProducts(response.data.results, response.data.totalPages));
+        console.log(response);
+        dispatch(receieveProducts(response.data.content, response.data.page.totalPages));
       },
       failureCallback: (error) => {
         dispatch(fetchingProductsError(error));

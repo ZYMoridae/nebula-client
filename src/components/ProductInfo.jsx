@@ -26,6 +26,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import MySnackbarContent from './MySnackbarContent';
+
+import Fade from '@material-ui/core/Fade';
+
 const styles = theme => ({
   container: {
     paddingTop: theme.spacing.unit * 5
@@ -73,6 +78,7 @@ class ProductInfo extends Component {
       age: '',
       name: 'hai',
       labelWidth: 0,
+      quantity: 1
     };
   }
 
@@ -87,9 +93,7 @@ class ProductInfo extends Component {
 
   
   render() {
-    const {classes, info, addCartItem} = this.props;
-
-    console.log(info.productMeta);
+    const {classes, info, addCartItem, isShowSuccessToast, hideSuccessToast} = this.props;
 
     let maxQuantity = 20;
 
@@ -99,9 +103,14 @@ class ProductInfo extends Component {
 
     const addCartButtonClickHandler = () => {
       addCartItem({
-        "userId": 5,
-        "productId": 28,
-        "quantity": 1
+        "productId": info.id,
+        "quantity": this.state.quantity
+      });
+    }
+
+    const itemQuantityChangeHandler = (event) => {
+      this.setState({
+        quantity: event.target.value
       });
     }
 
@@ -124,7 +133,24 @@ class ProductInfo extends Component {
     
     return (
       <div>
-         <Grid container className={classes.container}>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={isShowSuccessToast}
+          autoHideDuration={1500}
+          onClose={hideSuccessToast}
+        >
+          <MySnackbarContent
+            onClose={hideSuccessToast}
+            variant="success"
+            message="Item has been added!"
+          />
+        </Snackbar>
+
+        <Fade in={true} timeout={1000}>
+          <Grid container className={classes.container}>
             <Grid item xs={2}>
 
             </Grid>
@@ -157,7 +183,8 @@ class ProductInfo extends Component {
                           Quantity
                         </InputLabel>
                         <Select
-                          value={1}
+                          value={this.state.quantity}
+                          onChange={itemQuantityChangeHandler}
                           input={
                             <OutlinedInput
                               labelWidth={this.state.labelWidth}
@@ -197,7 +224,7 @@ class ProductInfo extends Component {
                 <Paper>
                   <Table className={classes.table}>
                     <TableBody>
-                      {info.productMeta && info.productMeta.map((meta, index) => (
+                      {info.productMetas && info.productMetas.map((meta, index) => (
                         <TableRow key={index}>
                           <TableCell component="th" scope="row" className={classes.tableKey}>
                             {meta.key}
@@ -220,6 +247,7 @@ class ProductInfo extends Component {
 
             </Grid>
          </Grid>
+        </Fade>
       </div>
     )
   }

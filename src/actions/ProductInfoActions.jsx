@@ -9,6 +9,7 @@ export const addCartItemSuccess = (result) => {
     isAddingCartItem: false,
     isAddedCartItem: true,
     info: result,
+    isShowSuccessToast: true,
     addedAt: Date.now()
   }
 }
@@ -17,7 +18,8 @@ export const addingCartItem = () => {
   return {
     type: ActionType.ADD_CART_ITEM_PENDING,
     isAddingCartItem: true,
-    isAddedCartItem: false
+    isAddedCartItem: false,
+    isShowSuccessToast: false
   }
 }
 
@@ -25,7 +27,8 @@ export const addingCartItemError = (err) => {
   return {
     type: ActionType.ADD_CART_ITEM_REJECTED,
     isAddingCartItem: false,
-    isAddedCartItem: true
+    isAddedCartItem: true,
+    isShowSuccessToast: false
   }
 }
 
@@ -50,6 +53,14 @@ export const addCartItem = (productInfo) => {
     });
   }
 }
+
+export const hideSuccessToast = () => {
+  return {
+    type: ActionType.HIDE_SUCCESS_TOAST,
+    isShowSuccessToast: false
+  }
+}
+
 
 // -------- ProductInfo Actions ----------
 export const receieveProductInfo = (result) => {
