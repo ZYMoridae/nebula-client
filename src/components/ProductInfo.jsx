@@ -31,6 +31,10 @@ import MySnackbarContent from './MySnackbarContent';
 
 import Fade from '@material-ui/core/Fade';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import ProductCategorySideBarContainer from '../containers/ProductCategorySideBarContainer';
+
 const styles = theme => ({
   container: {
     paddingTop: theme.spacing.unit * 5
@@ -114,6 +118,8 @@ class ProductInfo extends Component {
       });
     }
 
+    console.log(info);
+
     const images = [
       {
         original: 'http://lorempixel.com/1000/600/nature/1/',
@@ -149,13 +155,15 @@ class ProductInfo extends Component {
           />
         </Snackbar>
 
+        {!info && <CircularProgress/>}
+        {info && 
         <Fade in={true} timeout={1000}>
-          <Grid container className={classes.container}>
+          <Grid container >
             <Grid item xs={2}>
-
+              <ProductCategorySideBarContainer></ProductCategorySideBarContainer>
             </Grid>
 
-            <Grid item xs={8}>
+            <Grid item xs={8} className={classes.container}>
               <Grid container>
                 <Grid item xs={6}>
                   {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
@@ -163,10 +171,14 @@ class ProductInfo extends Component {
                 </Grid>
                 <Grid item xs={6}>
                   <div className={classes.metaContainer}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                       {_.capitalize(info.name)}
                     </Typography>
-                    <Typography variant="h6" gutterBottom>
+                    {info.vendor && <Typography variant="caption" gutterBottom>
+                      by {_.capitalize(info.vendor.username)}
+                    </Typography>}
+
+                    <Typography variant="subheading" gutterBottom>
                       Price: 
                       <span className={classes.priceCaption}>
                         ${_.capitalize(info.price)}
@@ -247,7 +259,8 @@ class ProductInfo extends Component {
 
             </Grid>
          </Grid>
-        </Fade>
+        </Fade>}
+
       </div>
     )
   }

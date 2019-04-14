@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { 
+import {
   fetchAuthInfo
 } from '../actions';
 import PropTypes from 'prop-types';
@@ -17,6 +17,8 @@ import {
 } from 'react-router-dom'
 import Snackbar from '@material-ui/core/Snackbar';
 import MySnackbarContent from './MySnackbarContent';
+
+import Fade from '@material-ui/core/Fade';
 
 const styles = theme => ({
   container: {
@@ -77,20 +79,21 @@ class Login extends Component {
     }
 
   }
-  
-  render() {
-    const {isFetchedAuth, classes, info, hideLoginError, isShowLoginError} = this.props;
 
-    if(sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != 'undefined') {
+  render() {
+    const { isFetchedAuth, classes, info, hideLoginError, isShowLoginError } = this.props;
+
+    if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != 'undefined') {
       location.href = '/';
     }
 
-    if(isFetchedAuth && this.props.info.token != undefined) {
+    if (isFetchedAuth && this.props.info.token != undefined) {
       sessionStorage.setItem('token', this.props.info.token);
       location.href = '/';
     }
 
     return (
+
       <div className="Post">
         <Snackbar
           anchorOrigin={{
@@ -108,49 +111,52 @@ class Login extends Component {
           />
         </Snackbar>
 
-        <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
-          
-          <Grid container alignItems="center" justify="center" direction="row">
-            <Paper className={classes.loginContainer}>
-              <Grid item xs={12}>
-                <Typography variant="h5" gutterBottom>
-                  Sign In
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="outlined-name"
-                  label="Name"
-                  name="username"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                  fullWidth={true}
-                  onChange={(e) => {this.onChange(e)}}
-                />                
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="outlined-password"
-                  label="Password"
-                  name="password"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                  type="password"
-                  fullWidth={true}
-                  onChange={(e) => {this.onChange(e)}}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" color="primary" size="large" fullWidth={true} className={classes.loginButton} type="submit">
-                  Login
-                </Button>
-              </Grid>
-            </Paper>
-          </Grid>
-          
-        </form>
+        <Fade in={true} timeout={1200}>
+          <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
+
+            <Grid container alignItems="center" justify="center" direction="row">
+              <Paper className={classes.loginContainer}>
+                <Grid item xs={12}>
+                  <Typography variant="h5" gutterBottom>
+                    Sign In
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-name"
+                    label="Name"
+                    name="username"
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth={true}
+                    onChange={(e) => { this.onChange(e) }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-password"
+                    label="Password"
+                    name="password"
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
+                    type="password"
+                    fullWidth={true}
+                    onChange={(e) => { this.onChange(e) }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button variant="contained" color="primary" size="large" fullWidth={true} className={classes.loginButton} type="submit">
+                    Login
+                  </Button>
+                </Grid>
+              </Paper>
+            </Grid>
+
+          </form>
+        </Fade>
+
       </div>
     )
   }

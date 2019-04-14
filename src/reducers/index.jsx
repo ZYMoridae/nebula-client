@@ -5,12 +5,14 @@ import NoteReducer from './NoteReducer';
 import LoginReducer from './LoginReducer';
 import ProductsReducer from './ProductsReducer';
 import ProductInfoReducer from './ProductInfoReducer';
+import ProductCategorySideBarReducer from './ProductCategorySideBarReducer';
 
 const counterApp = combineReducers({
   LoginReducer,
   NoteReducer,
   ProductsReducer,
-  ProductInfoReducer
+  ProductInfoReducer,
+  ProductCategorySideBarReducer
 })
 
 export default counterApp

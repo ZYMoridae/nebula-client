@@ -17,6 +17,9 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from '@material-ui/core/Divider';
+import Grow from '@material-ui/core/Grow';
+
+import Fade from '@material-ui/core/Fade';
 
 const styles = theme => ({
   container: {
@@ -125,11 +128,12 @@ class Products extends Component {
               {
                 Array.isArray(info) ?
                 info.map((product, index) => 
-                  <Grid item xs={6} sm={6} lg={4} key={index}>
-                    <ProductItem product={product}>
-
-                    </ProductItem>
-                  </Grid>
+                  <Grow in={true} key={index} timeout={index * 500}>
+                    <Grid item xs={6} sm={6} lg={4} >
+                      <ProductItem product={product}>
+                      </ProductItem>
+                    </Grid>
+                  </Grow>
                 ) : ''
               }
               <Grid item xs={12} alignContent='center'>

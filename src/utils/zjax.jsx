@@ -52,7 +52,7 @@ class Zjax {
 			
 			_axios.catch((error) => {
 
-				if(error.response.status == 401) {
+				if(error.response.status == 401 || error.response.status == 403) {
 					sessionStorage.removeItem('token');
 					location.href = '/login';
 				}
