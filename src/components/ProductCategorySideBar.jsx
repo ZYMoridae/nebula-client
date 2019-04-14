@@ -82,10 +82,10 @@ class ProductCategorySideBar extends Component {
           {info && info.map((item, index) => (
             <ListItem key={index} className={classes.categoryItem}>
               {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-              <ListItemText  children={
+              <ListItemText children={
                 <a href='/' className={classes.categoryItemLink}>
                   {_.capitalize(item.name)}
-                </a>}/>
+                </a>} />
             </ListItem>
           ))}
         </List>

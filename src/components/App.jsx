@@ -10,10 +10,9 @@ import LoginContainer from '../containers/LoginContainer';
 
 import UserContainer from '../containers/NoteContainer';
 import PrivateRoute from '../components/PrivateRoute';
-
 import ProductsContainer from '../containers/ProductsContainer';
-
 import ProductInfoContainer from '../containers/ProductInfoContainer';
+import ShoppingCartContainer from '../containers/ShoppingCartContainer';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -125,6 +124,13 @@ const ProductInfo = ({ match }) => {
   )
 }
 
+const CartInfo = () => {
+  return (
+    <div>
+      <ShoppingCartContainer></ShoppingCartContainer>
+    </div>
+  )
+}
 
 
 class App extends React.Component {
@@ -138,6 +144,7 @@ class App extends React.Component {
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/products" component={Products} />
             <PrivateRoute exact path="/products/:id" component={ProductInfo} />
+            <PrivateRoute exact path="/cart" component={CartInfo}/>
 
             <Route exact path="/login" component={Login} />
           </div>

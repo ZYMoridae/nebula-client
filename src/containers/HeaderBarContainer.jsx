@@ -16,6 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const styles = theme => ({
   root: {
@@ -189,6 +190,10 @@ class PrimarySearchAppBar extends React.Component {
 
       </Menu>
     );
+    
+    const cartIconButtonClickHandler = (event) => {
+      window.location.href = '/cart';
+    }
 
     return (
       <div className={classes.root}>
@@ -218,11 +223,9 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.grow} />
             {isUserLogin ? 
             <div className={classes.sectionDesktop}>
-              {/* <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton> */}
+              <IconButton color="inherit" onClick={cartIconButtonClickHandler}>
+                <ShoppingCartIcon />
+              </IconButton>
               <IconButton color="inherit">
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />

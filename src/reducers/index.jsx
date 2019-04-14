@@ -6,13 +6,15 @@ import LoginReducer from './LoginReducer';
 import ProductsReducer from './ProductsReducer';
 import ProductInfoReducer from './ProductInfoReducer';
 import ProductCategorySideBarReducer from './ProductCategorySideBarReducer';
+import ShoppingCartReducer from './ShoppingCartReducer';
 
 const counterApp = combineReducers({
   LoginReducer,
   NoteReducer,
   ProductsReducer,
   ProductInfoReducer,
-  ProductCategorySideBarReducer
+  ProductCategorySideBarReducer,
+  ShoppingCartReducer
 })
 
 export default counterApp
