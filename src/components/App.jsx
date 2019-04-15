@@ -14,6 +14,8 @@ import ProductsContainer from '../containers/ProductsContainer';
 import ProductInfoContainer from '../containers/ProductInfoContainer';
 import ShoppingCartContainer from '../containers/ShoppingCartContainer';
 
+import Footer from './Footer';
+
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const nebulaTheme = createMuiTheme({
@@ -21,6 +23,7 @@ const nebulaTheme = createMuiTheme({
     primary: {
       // light: will be calculated from palette.primary.main,
       main: '#ff5000',
+      footerDark: '#401500'
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
@@ -147,6 +150,8 @@ class App extends React.Component {
             <PrivateRoute exact path="/cart" component={CartInfo}/>
 
             <Route exact path="/login" component={Login} />
+
+            <Footer></Footer>
           </div>
         </MuiThemeProvider>
       </Router>
