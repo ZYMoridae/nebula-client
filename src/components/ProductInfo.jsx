@@ -35,9 +35,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ProductCategorySideBarContainer from '../containers/ProductCategorySideBarContainer';
 
+import ProductComments from './ProductComments';
+
+
 const styles = theme => ({
   container: {
-    paddingTop: theme.spacing.unit * 5
+    paddingTop: theme.spacing.unit * 5,
+    marginBottom: theme.spacing.unit * 2
   },
   priceCaption: {
     color: '#B12704',
@@ -88,16 +92,17 @@ class ProductInfo extends Component {
 
 
   componentDidMount() {
-    const {fetchProductInfo, productId} = this.props;
+    const {fetchProductInfo, productId, fetchProductComments} = this.props;
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
     fetchProductInfo(productId);
+    fetchProductComments(productId);
   }
 
   
   render() {
-    const {classes, info, addCartItem, isShowSuccessToast, hideSuccessToast} = this.props;
+    const {classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments} = this.props;
 
     let maxQuantity = 20;
 
@@ -253,6 +258,9 @@ class ProductInfo extends Component {
                 <Typography variant="h6" gutterBottom>
                   Customer Reviews
                 </Typography>
+                <div>
+                  {productComments && <ProductComments comment={productComments} deepIndex={1}></ProductComments>}
+                </div>
               </Grid>
             </Grid>
             <Grid item xs={2}>

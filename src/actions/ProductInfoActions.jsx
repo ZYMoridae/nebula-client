@@ -110,3 +110,55 @@ export const fetchProductInfo = (productId) => {
     });
   }
 }
+
+
+// Product Comments
+
+// -------- ProductInfo Actions ----------
+export const receieveProductComments = (result) => {
+  return {
+    type: ActionType.RECEIVE_PRODUCT_COMMENTS,
+    isFetchingProductComments: false,
+    isFetchedProductComments: true,
+    info: result,
+    receivedAt: Date.now()
+  }
+}
+
+export const fetchingProductComments = () => {
+  return {
+    type: ActionType.FETCHING_PRODUCT_COMMENTS_PENDING,
+    isFetchingProductComments: true,
+    isFetchedProductComments: false
+  }
+}
+
+export const fetchingProductCommentsError = (err) => {
+  return {
+    type: ActionType.FETCHING_PRODUCT_COMMENTS_REJECTED,
+    isFetchingProductComments: false,
+    isFetchedProductComments: true
+  }
+}
+
+
+export const fetchProductComments = (productId) => {
+  return function (dispatch) {
+    dispatch(fetchingProductComments());
+
+    let options = {
+      method: 'get'
+    };
+
+    Zjax.request({
+      url: `/api/products/${productId}/comments`,
+      option: Utils.addToken(options),
+      successCallback: (response) => {
+        dispatch(receieveProductComments(response.data));
+      },
+      failureCallback: (error) => {
+        dispatch(fetchingProductCommentsError(error));
+      }
+    });
+  }
+}

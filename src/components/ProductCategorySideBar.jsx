@@ -55,7 +55,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     borderRight: 'solid 1px',
     borderColor: '#d3d3d3',
-    height: '100%'
+    height: 'max-content'
   },
   categoryListContainer: {
     marginLeft: theme.spacing.unit

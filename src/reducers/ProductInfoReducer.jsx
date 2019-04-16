@@ -6,7 +6,10 @@ let initState = {
   isAddedCartItem: false,
   isAddingCartItem: false,
   isShowSuccessToast: false,
-  info: 'null'
+  isFetchingProductComments: false,
+  isFetchedProductComments: false,
+  info: 'null',
+  productComments: []
 }
 
 const productInfoReducer = (state = initState, action) => {
@@ -47,6 +50,22 @@ const productInfoReducer = (state = initState, action) => {
     case ActionType.HIDE_SUCCESS_TOAST:
       return Object.assign({}, state, {
         isShowSuccessToast: action.isShowSuccessToast
+      })
+    case ActionType.FETCHING_PRODUCT_COMMENTS_PENDING:
+      return Object.assign({}, state, {
+        isFetchingProductComments: action.isFetchingProductComments,
+        isFetchedProductComments: action.isFetchedProductComments
+      })
+    case ActionType.FETCHING_PRODUCT_COMMENTS_REJECTED:
+      return Object.assign({}, state, {
+        isFetchingProductComments: action.isFetchingProductComments,
+        isFetchedProductComments: action.isFetchedProductComments
+      })
+    case ActionType.RECEIVE_PRODUCT_COMMENTS:
+      return Object.assign({}, state, {
+        isFetchingProductComments: action.isFetchingProductComments,
+        isFetchedProductComments: action.isFetchedProductComments,
+        productComments: action.info
       })
     default:
       return state
