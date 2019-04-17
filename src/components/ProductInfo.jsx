@@ -92,7 +92,7 @@ class ProductInfo extends Component {
 
 
   componentDidMount() {
-    const {fetchProductInfo, productId, fetchProductComments} = this.props;
+    const { fetchProductInfo, productId, fetchProductComments } = this.props;
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
@@ -100,13 +100,13 @@ class ProductInfo extends Component {
     fetchProductComments(productId);
   }
 
-  
+
   render() {
-    const {classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments} = this.props;
+    const { classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments } = this.props;
 
     let maxQuantity = 20;
 
-    if(info.unitsInStock != undefined && info.unitsInStock > 0 && info.unitsInStock < 20) {
+    if (info.unitsInStock != undefined && info.unitsInStock > 0 && info.unitsInStock < 20) {
       maxQuantity = info.unitsInStock;
     }
 
@@ -141,7 +141,7 @@ class ProductInfo extends Component {
     ]
 
     let quantityArray = [...Array(maxQuantity).keys()].map(item => ++item);
-    
+
     return (
       <div>
         <Snackbar
@@ -160,114 +160,116 @@ class ProductInfo extends Component {
           />
         </Snackbar>
 
-        {!info && <CircularProgress/>}
-        {info && 
-        <Fade in={true} timeout={1000}>
-          <Grid container >
-            <Grid item xs={2}>
-              <ProductCategorySideBarContainer></ProductCategorySideBarContainer>
-            </Grid>
+        {!info && <CircularProgress />}
+        {info &&
+          <Fade in={true} timeout={1000}>
+            <Grid container >
+              <Grid item xs={2}>
+                <ProductCategorySideBarContainer></ProductCategorySideBarContainer>
+              </Grid>
 
-            <Grid item xs={8} className={classes.container}>
-              <Grid container>
-                <Grid item xs={6}>
-                  {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
-                  <ImageGallery items={images} showNav={false} showPlayButton={false} autoPlay={true} lazyLoad={true} useBrowserFullscreen={false}/>
-                </Grid>
-                <Grid item xs={6}>
-                  <div className={classes.metaContainer}>
-                    <Typography variant="h6" gutterBottom>
-                      {_.capitalize(info.name)}
-                    </Typography>
-                    {info.vendor && <Typography variant="caption" gutterBottom>
-                      by {_.capitalize(info.vendor.username)}
-                    </Typography>}
+              <Grid item xs={8} className={classes.container}>
+                <Grid container>
+                  <Grid item xs={6}>
+                    {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
+                    <ImageGallery items={images} showNav={false} showPlayButton={false} autoPlay={true} lazyLoad={true} useBrowserFullscreen={false} />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <div className={classes.metaContainer}>
+                      <Typography variant="h6" gutterBottom>
+                        {_.capitalize(info.name)}
+                      </Typography>
+                      {info.vendor && <Typography variant="caption" gutterBottom>
+                        by {_.capitalize(info.vendor.username)}
+                      </Typography>}
 
-                    <Typography variant="subheading" gutterBottom>
-                      Price: 
+                      <Typography variant="subheading" gutterBottom>
+                        Price:
                       <span className={classes.priceCaption}>
-                        ${_.capitalize(info.price)}
-                      </span>
-                    </Typography>
-                    <div>
-                      <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel
-                          ref={ref => {
-                            this.InputLabelRef = ref;
-                          }}
-                          htmlFor="outlined-age-simple"
-                        >
-                          Quantity
+                          ${_.capitalize(info.price)}
+                        </span>
+                      </Typography>
+                      <div>
+                        <FormControl variant="outlined" className={classes.formControl}>
+                          <InputLabel
+                            ref={ref => {
+                              this.InputLabelRef = ref;
+                            }}
+                            htmlFor="outlined-age-simple"
+                          >
+                            Quantity
                         </InputLabel>
-                        <Select
-                          value={this.state.quantity}
-                          onChange={itemQuantityChangeHandler}
-                          input={
-                            <OutlinedInput
-                              labelWidth={this.state.labelWidth}
-                              name="quantity"
-                              id="outlined-age-simple"
-                            />
-                          }
-                        >
-                        {
-                          quantityArray.map((item, index) => 
-                            <MenuItem key={index} value={item}>{item}</MenuItem>
-                          )
-                        }
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div>
-                      <Button variant="contained" className={classes.button} fullWidth={true} onClick={() => {addCartButtonClickHandler()}}>
-                        <ShoppingCart className={classes.leftIcon} />
-                        Add to cart
+                          <Select
+                            value={this.state.quantity}
+                            onChange={itemQuantityChangeHandler}
+                            input={
+                              <OutlinedInput
+                                labelWidth={this.state.labelWidth}
+                                name="quantity"
+                                id="outlined-age-simple"
+                              />
+                            }
+                          >
+                            {
+                              quantityArray.map((item, index) =>
+                                <MenuItem key={index} value={item}>{item}</MenuItem>
+                              )
+                            }
+                          </Select>
+                        </FormControl>
+                      </div>
+                      <div>
+                        <Button variant="contained" className={classes.button} fullWidth={true} onClick={() => { addCartButtonClickHandler() }}>
+                          <ShoppingCart className={classes.leftIcon} />
+                          Add to cart
                       </Button>
-                    </div>
-                    <div>
-                      <Button variant="contained" className={classes.button} fullWidth={true}>
-                        <PlayCircleOutline className={classes.leftIcon} />
-                        Buy now
+                      </div>
+                      <div>
+                        <Button variant="contained" className={classes.button} fullWidth={true}>
+                          <PlayCircleOutline className={classes.leftIcon} />
+                          Buy now
                       </Button>
+                      </div>
                     </div>
+                  </Grid>
+                </Grid>
+                <Divider className={classes.divider} />
+                <Grid item xs={6}>
+                  <Typography variant="h6" gutterBottom>
+                    Product Information
+                </Typography>
+                  <Paper>
+                    <Table className={classes.table}>
+                      <TableBody>
+                        {info.productMetas && info.productMetas.map((meta, index) => (
+                          <TableRow key={index}>
+                            <TableCell component="th" scope="row" className={classes.tableKey}>
+                              {meta.key}
+                            </TableCell>
+                            <TableCell align="right">{meta.value}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </Paper>
+                </Grid>
+                <Divider className={classes.divider} />
+                <Grid item xs={12}>
+                  <Typography variant="h6" gutterBottom>
+                    Customer Reviews
+                </Typography>
+                  <div>
+                    {productComments && productComments.map((productComment, index) => 
+                      <ProductComments key={index} comment={productComment} deepIndex={1}></ProductComments>
+                    )}
                   </div>
                 </Grid>
               </Grid>
-              <Divider className={classes.divider}/>
-              <Grid item xs={6}>
-                <Typography variant="h6" gutterBottom>
-                  Product Information
-                </Typography>
-                <Paper>
-                  <Table className={classes.table}>
-                    <TableBody>
-                      {info.productMetas && info.productMetas.map((meta, index) => (
-                        <TableRow key={index}>
-                          <TableCell component="th" scope="row" className={classes.tableKey}>
-                            {meta.key}
-                          </TableCell>
-                          <TableCell align="right">{meta.value}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Paper>
-              </Grid>
-              <Divider className={classes.divider}/>
-              <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom>
-                  Customer Reviews
-                </Typography>
-                <div>
-                  {productComments && <ProductComments comment={productComments} deepIndex={1}></ProductComments>}
-                </div>
-              </Grid>
-            </Grid>
-            <Grid item xs={2}>
+              <Grid item xs={2}>
 
+              </Grid>
             </Grid>
-         </Grid>
-        </Fade>}
+          </Fade>}
 
       </div>
     )

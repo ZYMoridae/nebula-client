@@ -120,7 +120,7 @@ export const receieveProductComments = (result) => {
     type: ActionType.RECEIVE_PRODUCT_COMMENTS,
     isFetchingProductComments: false,
     isFetchedProductComments: true,
-    info: result,
+    info: result.content,
     receivedAt: Date.now()
   }
 }
