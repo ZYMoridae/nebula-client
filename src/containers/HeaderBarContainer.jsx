@@ -100,7 +100,7 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({
       anchorEl: null,
       mobileMoreAnchorEl: null,
-      isUserLogin: sessionStorage.getItem('user') != null && sessionStorage.getItem('user') != 'undefined'
+      isUserLogin: sessionStorage.getItem('user') != null && sessionStorage.getItem('user') != 'undefined' && sessionStorage.getItem('user') != 'null'
     });
   }
 
