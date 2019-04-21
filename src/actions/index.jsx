@@ -4,3 +4,4 @@ export * from './ProductsActions';
 export * from './ProductInfoActions';
 export * from './ProductCategoryActions';
 export * from './ShoppingCartActions';
+export * from './PaymentActions';

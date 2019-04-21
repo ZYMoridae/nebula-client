@@ -13,6 +13,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import ProductsContainer from '../containers/ProductsContainer';
 import ProductInfoContainer from '../containers/ProductInfoContainer';
 import ShoppingCartContainer from '../containers/ShoppingCartContainer';
+import PaymentContainer from '../containers/PaymentContainer';
 
 import Footer from './Footer';
 
@@ -135,6 +136,13 @@ const CartInfo = () => {
   )
 }
 
+const PaymentComponent = () => {
+  return (
+    <div>
+      <PaymentContainer></PaymentContainer>
+    </div>
+  )
+}
 
 class App extends React.Component {
   render() {
@@ -148,6 +156,7 @@ class App extends React.Component {
             <PrivateRoute exact path="/products" component={Products} />
             <PrivateRoute exact path="/products/:id" component={ProductInfo} />
             <PrivateRoute exact path="/cart" component={CartInfo}/>
+            <PrivateRoute exact path="/payment" component={PaymentComponent}/>
 
             <Route exact path="/login" component={Login} />
 

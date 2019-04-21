@@ -7,6 +7,7 @@ import ProductsReducer from './ProductsReducer';
 import ProductInfoReducer from './ProductInfoReducer';
 import ProductCategorySideBarReducer from './ProductCategorySideBarReducer';
 import ShoppingCartReducer from './ShoppingCartReducer';
+import PaymentReducer from './PaymentReducer';
 
 const counterApp = combineReducers({
   LoginReducer,
@@ -14,7 +15,8 @@ const counterApp = combineReducers({
   ProductsReducer,
   ProductInfoReducer,
   ProductCategorySideBarReducer,
-  ShoppingCartReducer
+  ShoppingCartReducer,
+  PaymentReducer
 })
 
 export default counterApp
