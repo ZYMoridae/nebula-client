@@ -125,7 +125,7 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { info, classes } = this.props;
+    const { info, classes, proceedShoppingCart} = this.props;
     
     let _itemCheckedState = [];
     info.forEach(row => {
@@ -143,7 +143,7 @@ class ShoppingCart extends Component {
     const handleCheckout =  () => {
       let productForCheckout = [];
       info.forEach((cartItem, index)=>{
-        if(this.state.itemCheckedState[inde]) {
+        if(this.state.itemCheckedState[index]) {
           let checkoutItem = {
             id: cartItem.id,
             quantity: this.state.itemQuantity[index] == undefined ? cartItem.quantity : this.state.itemQuantity[index]
@@ -153,6 +153,11 @@ class ShoppingCart extends Component {
       });
 
       // TODO: Checkout action
+      console.log(JSON.stringify(productForCheckout));
+      localStorage.setItem('_pfc', JSON.stringify(productForCheckout));
+
+      proceedShoppingCart(productForCheckout);
+      window.location.href = '/payment';
     };
 
     const itemQuantityChangeHandler = index => event => {

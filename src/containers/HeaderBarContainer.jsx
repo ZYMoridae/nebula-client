@@ -97,6 +97,7 @@ const styles = theme => ({
 
 class PrimarySearchAppBar extends React.Component {
   componentWillMount() {
+    // TODO: user login check wrongly when network disconnected
     this.setState({
       anchorEl: null,
       mobileMoreAnchorEl: null,

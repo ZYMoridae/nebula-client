@@ -3,6 +3,7 @@ import ActionType from '../actions/ActionType';
 let initState = {
   isFetchingShoppingCart: false,
   isFetchedShoppingCart: false,
+  cartItems: [],
   info: []
 }
 const shoppingCartReducer = (state = initState, action) => {
@@ -22,6 +23,10 @@ const shoppingCartReducer = (state = initState, action) => {
         isFetchedShoppingCart: action.isFetchedShoppingCart,
         isFetchingShoppingCart: action.isFetchingShoppingCart,
         info: action.info,
+      })
+    case ActionType.PROCEEED_SHOPPING_CART:
+      return Object.assign({}, state, {
+        cartItems: action.cartItems
       })
     default:
       return state

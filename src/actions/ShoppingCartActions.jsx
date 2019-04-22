@@ -60,3 +60,11 @@ export const fetchShoppingCartInfo = () => {
     });
   }
 }
+
+
+export const proceedShoppingCart = (cartItems) => {
+  return {
+    type: ActionType.PROCEEED_SHOPPING_CART,
+    cartItems: cartItems
+  }
+}

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import {
-  fetchShoppingCartInfo
+  fetchShoppingCartInfo,
+  proceedShoppingCart
 } from '../actions';
 import ShoppingCart from '../components/ShoppingCart';
 
@@ -18,6 +19,9 @@ const mapDispatchToProps = dispatch => {
     dispatch,
     fetchShoppingCartInfo: () => {
       dispatch(fetchShoppingCartInfo());
+    },
+    proceedShoppingCart: (cartItems) => {
+      dispatch(proceedShoppingCart(cartItems));
     }
   }
 }

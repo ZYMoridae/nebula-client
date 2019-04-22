@@ -86,6 +86,8 @@ class Payment extends Component {
     const steps = getSteps();
     const { activeStep } = this.state;
 
+    let cartItems = JSON.parse(localStorage.getItem('_pfc'));
+    console.log(cartItems);
     // const totalSteps = () => getSteps().length;
 
     const isStepOptional = (step) => {step === 1};
