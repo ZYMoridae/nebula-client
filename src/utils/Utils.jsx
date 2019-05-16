@@ -10,6 +10,9 @@ const Utils = {
       }
     }
     return Object.assign({}, options, tokenOption);
+  },
+  isUserLogin: () => {
+    return sessionStorage.getItem('token') != undefined && sessionStorage.getItem('token') != 'null' && sessionStorage.getItem('token') != 'undefined';
   }
 }
 

@@ -6,7 +6,6 @@ import {
 import ShoppingCart from '../components/ShoppingCart';
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     info: state.ShoppingCartReducer.info,
     isFetchingProductCategory: state.ShoppingCartReducer.isFetchingProductCategory,

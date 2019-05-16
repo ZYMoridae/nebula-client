@@ -2,16 +2,13 @@ import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
 
-// var zjax = new Zjax();
-
-// -------- User Actions ----------
+// -------- Shopping Cart Actions ----------
 export const receieveShoppingCart = (results) => {
   return {
     type: ActionType.RECEIVE_SHOPPINGCART,
     isFetchingShoppingCart: false,
     isFetchedShoppingCart: true,
-    info: results,
-    receivedAt: Date.now()
+    info: results
   }
 }
 
@@ -32,26 +29,18 @@ export const fetchingShoppingCartError = (err) => {
   }
 }
 
-
 export const fetchShoppingCartInfo = () => {
   return function (dispatch) {
     dispatch(fetchingShoppingCart());
 
-    // if(data.headers) {
-    //   headers = data.headers;
-    // }
     let options = {
       method: 'get'
     };
 
-    // console.log(Utils.addToken(options));
-
-    // delete data.headers;
     Zjax.request({
       url: `/api/carts/my`,
       option: Utils.addToken(options),
       successCallback: (response) => {
-        console.log(response);
         dispatch(receieveShoppingCart(response.data.cartItems));
       },
       failureCallback: (error) => {
@@ -60,7 +49,6 @@ export const fetchShoppingCartInfo = () => {
     });
   }
 }
-
 
 export const proceedShoppingCart = (cartItems) => {
   return {

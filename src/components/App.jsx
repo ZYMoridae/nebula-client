@@ -1,8 +1,7 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 import HeaderBarContainer from '../containers/HeaderBarContainer';
 import HomeContainer from '../containers/HomeContainer';
@@ -19,7 +18,12 @@ import Footer from './Footer';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+import Utils from '../utils/Utils';
+
 const nebulaTheme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
@@ -48,47 +52,6 @@ const Home = () => (
 const Login = () => (
   <div>
     <LoginContainer></LoginContainer>
-  </div>
-)
-
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
-
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
-
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.path}/:topicId`} component={Topic} />
-    <Route exact path={match.path} render={() => (
-      <h3>Please select a topic.</h3>
-    )} />
   </div>
 )
 
@@ -150,17 +113,17 @@ class App extends React.Component {
       <Router>
         <MuiThemeProvider theme={nebulaTheme}>
           <div>
-            <HeaderBarContainer></HeaderBarContainer>
+            {Utils.isUserLogin() && <HeaderBarContainer></HeaderBarContainer>}
 
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/products" component={Products} />
             <PrivateRoute exact path="/products/:id" component={ProductInfo} />
-            <PrivateRoute exact path="/cart" component={CartInfo}/>
-            <PrivateRoute exact path="/payment" component={PaymentComponent}/>
+            <PrivateRoute exact path="/cart" component={CartInfo} />
+            <PrivateRoute exact path="/payment" component={PaymentComponent} />
 
             <Route exact path="/login" component={Login} />
 
-            <Footer></Footer>
+            {Utils.isUserLogin() && <Footer></Footer>}
           </div>
         </MuiThemeProvider>
       </Router>

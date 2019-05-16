@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Image from 'material-ui-image';
 import _ from 'lodash';
 
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
@@ -22,7 +21,6 @@ import ImageGallery from 'react-image-gallery';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
@@ -123,8 +121,6 @@ class ProductInfo extends Component {
       });
     }
 
-    console.log(info);
-
     const images = [
       {
         original: 'http://lorempixel.com/1000/600/nature/1/',
@@ -183,7 +179,7 @@ class ProductInfo extends Component {
                         by {_.capitalize(info.vendor.username)}
                       </Typography>}
 
-                      <Typography variant="subheading" gutterBottom>
+                      <Typography variant="subtitle1" gutterBottom>
                         Price:
                       <span className={classes.priceCaption}>
                           ${_.capitalize(info.price)}
@@ -259,7 +255,7 @@ class ProductInfo extends Component {
                     Customer Reviews
                 </Typography>
                   <div>
-                    {productComments && productComments.map((productComment, index) => 
+                    {productComments && productComments.map((productComment, index) =>
                       <ProductComments key={index} comment={productComment} deepIndex={1}></ProductComments>
                     )}
                   </div>

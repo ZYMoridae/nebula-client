@@ -4,7 +4,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Grow from '@material-ui/core/Grow';
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  }
+});
 
 const classes = {
   commentBody: (deepIndex) => {
@@ -27,10 +31,8 @@ const classes = {
     marginRight: theme.spacing.unit
   },
   cBody: {
-    // marginLeft: theme.spacing.unit * 4
   }
 };
-
 
 class ProductComments extends Component {
   render() {
@@ -45,9 +47,9 @@ class ProductComments extends Component {
               <AccountCircle fontSize="large" style={classes.commentUserImage} />
               {comment.user && comment.user.username}
             </Typography>
-            <sapn style={classes.cBody}>
+            <span style={classes.cBody}>
               {comment.body}
-            </sapn>
+            </span>
           </Typography>
         </div>
         {comment.childrenComments && comment.childrenComments.map((comment1, index) =>
@@ -59,9 +61,9 @@ class ProductComments extends Component {
                     <AccountCircle fontSize="large" style={classes.commentUserImage} />
                     {comment1.user && comment1.user.username}
                   </Typography>
-                  <sapn style={classes.cBody}>
+                  <span style={classes.cBody}>
                     {comment1.body}
-                  </sapn>
+                  </span>
                 </Typography>
               </div>
               {comment1.childrenComments && comment1.childrenComments.map((childComment, index2) => <ProductComments key={index2} comment={childComment} deepIndex={deepIndex + 2}></ProductComments>)}

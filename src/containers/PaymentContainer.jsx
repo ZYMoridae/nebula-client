@@ -5,7 +5,6 @@ import {
 import Payment from '../components/Payment';
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     info: state.PaymentReducer.info,
     isPaymentProcessing: state.PaymentReducer.isPaymentProcessing,

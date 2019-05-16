@@ -41,7 +41,6 @@ export const fetchNoteInfo = () => {
         method: 'get'
       },
       successCallback: (response) => {
-        console.log(response);
         dispatch(receieveNote(response.data));
       },
       failureCallback: (err) => {

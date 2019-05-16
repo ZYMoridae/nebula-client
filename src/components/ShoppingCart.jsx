@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -23,7 +19,6 @@ import green from '@material-ui/core/colors/green';
 
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 import CheckCircle from '@material-ui/icons/CheckCircle';
-
 
 const styles = theme => ({
   root: {
@@ -125,27 +120,25 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { info, classes, proceedShoppingCart} = this.props;
-    
+    const { info, classes, proceedShoppingCart } = this.props;
+
     let _itemCheckedState = [];
     info.forEach(row => {
       _itemCheckedState.push(false);
     });
 
-    // this.setState({ itemCheckedState: _itemCheckedState })
-
     const handleChange = index => event => {
       let _itemCheckedState = this.state.itemCheckedState;
-      _itemCheckedState[index] = event.target.checked
+      _itemCheckedState[index] = event.target.checked;
       this.setState({ itemCheckedState: _itemCheckedState });
     };
 
-    const handleCheckout =  () => {
+    const handleCheckout = () => {
       let productForCheckout = [];
-      info.forEach((cartItem, index)=>{
-        if(this.state.itemCheckedState[index]) {
+      info.forEach((cartItem, index) => {
+        if (this.state.itemCheckedState[index]) {
           let checkoutItem = {
-            id: cartItem.id,
+            id: cartItem.product.id,
             quantity: this.state.itemQuantity[index] == undefined ? cartItem.quantity : this.state.itemQuantity[index]
           };
           productForCheckout.push(checkoutItem);
@@ -153,7 +146,6 @@ class ShoppingCart extends Component {
       });
 
       // TODO: Checkout action
-      console.log(JSON.stringify(productForCheckout));
       localStorage.setItem('_pfc', JSON.stringify(productForCheckout));
 
       proceedShoppingCart(productForCheckout);
@@ -272,11 +264,11 @@ class ShoppingCart extends Component {
                     </TableCell>
                     <TableCell align="right">
                       <Checkbox
-                        checked={this.state.itemCheckedState[index]}
+                        checked={this.state.itemCheckedState[index] || false}
                         onChange={handleChange(index)}
                         value="checkedB"
-                        icon={<CheckCircleOutline fontSize="medium"/>}
-                        checkedIcon={<CheckCircle fontSize="medium"/>}
+                        icon={<CheckCircleOutline fontSize="large" />}
+                        checkedIcon={<CheckCircle fontSize="large" />}
                         classes={{
                           root: classes.cbox,
                           checked: classes.checked
@@ -293,7 +285,7 @@ class ShoppingCart extends Component {
                 ${getTotalPrice()}
               </span>
             </Typography>
-            <div style={{textAlign: 'right'}}>
+            <div style={{ textAlign: 'right' }}>
               <Button variant="contained" color="primary" size="large" onClick={handleCheckout}>
                 Proceed to Checkout
               </Button>

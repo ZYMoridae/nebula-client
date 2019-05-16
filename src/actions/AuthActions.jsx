@@ -1,17 +1,14 @@
 import Zjax from '../utils/zjax';
 import ActionType from './ActionType';
 
-// var zjax = new Zjax();
-
-// -------- User Actions ----------
+// ------ Auth Actions ------
 export const receieveAuth = (json) => {
   return {
     type: ActionType.AUTH_SUCCESS,
     isFetchingAuth: false,
     isFetchedAuth: true,
     isShowLoginError: false,
-    info: json,
-    receivedAt: Date.now()
+    info: json
   }
 }
 
@@ -45,7 +42,7 @@ export const fetchAuthInfo = (data) => {
   return function (dispatch) {
     dispatch(fetchingAuth());
     var headers = {};
-    if(data.headers) {
+    if (data.headers) {
       headers = data.headers;
     }
     delete data.headers;
@@ -57,7 +54,6 @@ export const fetchAuthInfo = (data) => {
         headers: headers
       },
       successCallback: (response) => {
-        console.log(response);
         // Set auth token
         sessionStorage.setItem('user', response.data);
         localStorage.setItem('token', response.data.token);

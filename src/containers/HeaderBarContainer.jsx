@@ -17,6 +17,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import NebulaIcon from '../components/NebulaIcon';
 
 const styles = theme => ({
   root: {
@@ -205,9 +206,14 @@ class PrimarySearchAppBar extends React.Component {
             </IconButton> : ''}
 
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              <a href="/" className={classes.homeButton}>
-                Nebula
-              </a>
+              <Toolbar>
+                <NebulaIcon />
+                <Typography variant="h6" color="inherit" noWrap>
+                  <a href="/" className={classes.homeButton}>
+                    Nebula
+                  </a>
+                </Typography>
+              </Toolbar>
             </Typography>
             {/* <div className={classes.search}>
               <div className={classes.searchIcon}>

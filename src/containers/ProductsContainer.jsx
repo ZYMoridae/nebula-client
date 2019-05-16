@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { 
+import {
   fetchProductsInfo
 } from '../actions';
 import Products from '../components/Products';

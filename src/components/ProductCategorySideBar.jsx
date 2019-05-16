@@ -71,8 +71,6 @@ class ProductCategorySideBar extends Component {
   render() {
     const { classes, info } = this.props;
 
-    console.log(info);
-
     return (
       <div className={classes.categoryContainer}>
         <Typography variant="subtitle1" gutterBottom>

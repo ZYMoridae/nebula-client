@@ -2,15 +2,14 @@ import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
 
-
+// ------ Shopping Cart Item Actions ------
 export const addCartItemSuccess = (result) => {
   return {
     type: ActionType.ADD_CART_ITEM_FULLFILLED,
     isAddingCartItem: false,
     isAddedCartItem: true,
     info: result,
-    isShowSuccessToast: true,
-    addedAt: Date.now()
+    isShowSuccessToast: true
   }
 }
 
@@ -61,15 +60,13 @@ export const hideSuccessToast = () => {
   }
 }
 
-
-// -------- ProductInfo Actions ----------
+// ------ ProductInfo Actions ------
 export const receieveProductInfo = (result) => {
   return {
     type: ActionType.RECEIVE_PRODUCT_INFO,
     isFetchingProductInfo: false,
     isFetchedProductInfo: true,
-    info: result,
-    receivedAt: Date.now()
+    info: result
   }
 }
 
@@ -111,17 +108,13 @@ export const fetchProductInfo = (productId) => {
   }
 }
 
-
-// Product Comments
-
-// -------- ProductInfo Actions ----------
+// ------ Product Comments Actions ------
 export const receieveProductComments = (result) => {
   return {
     type: ActionType.RECEIVE_PRODUCT_COMMENTS,
     isFetchingProductComments: false,
     isFetchedProductComments: true,
-    info: result.content,
-    receivedAt: Date.now()
+    info: result.content
   }
 }
 

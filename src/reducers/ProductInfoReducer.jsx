@@ -45,7 +45,6 @@ const productInfoReducer = (state = initState, action) => {
         isAddedCartItem: action.isAddedCartItem,
         isAddingCartItem: action.isAddingCartItem,
         isShowSuccessToast: action.isShowSuccessToast
-        // info: action.info
       })
     case ActionType.HIDE_SUCCESS_TOAST:
       return Object.assign({}, state, {
