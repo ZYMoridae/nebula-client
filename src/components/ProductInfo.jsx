@@ -181,7 +181,7 @@ class ProductInfo extends Component {
 
                       <Typography variant="subtitle1" gutterBottom>
                         Price:
-                      <span className={classes.priceCaption}>
+                        <span className={classes.priceCaption}>
                           ${_.capitalize(info.price)}
                         </span>
                       </Typography>
