@@ -20,7 +20,7 @@ const styles = theme => ({
   subHeader: {
     fontWeight: 600
   },
-  articleMetaContainer: {
+  promotionMetaContainer: {
     textAlign: 'center',
     position: 'absolute',
     top: '50%',
@@ -62,8 +62,13 @@ class Home extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    const { fetchHomeBannerInfo } = this.props;
+    fetchHomeBannerInfo();
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, info } = this.props;
 
     return (
       <div className={styles.root}>
@@ -73,14 +78,14 @@ class Home extends Component {
           </Grid>
           <Grid item xs={10} md={8} xl={6}>
             <Slider autoplay={3000} previousButton={<ChevronLeft fontSize='large' className={classes.nav}/>} nextButton={<ChevronRight fontSize='large' className={classes.nav}/>}>
-              {content.map((article, index) => 
-                <div key={index} style={{ background: `url('${article.image}') no-repeat center center` }}>
-                  <div className={classes.articleMetaContainer}>
+              {info.map((promotion, index) => 
+                <div key={index} style={{ background: `url('${promotion.imageUrl}') no-repeat center center` }}>
+                  <div className={classes.promotionMetaContainer}>
                     <Typography variant="h3" gutterBottom className={classes.title}>
-                      {article.title}
+                      {promotion.title}
                     </Typography>
                     <Typography variant="subtitle2" gutterBottom>
-                      {article.description}
+                      {promotion.description}
                     </Typography>
                   </div>
                 </div>
