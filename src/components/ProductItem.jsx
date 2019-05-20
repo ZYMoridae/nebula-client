@@ -63,7 +63,7 @@ class ProductItem extends React.Component {
 
   render() {
     const { classes, product } = this.props;
-
+    
     return (
       <Card className={classes.card}>
         <CardHeader

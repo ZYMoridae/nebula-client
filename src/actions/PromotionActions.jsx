@@ -1,6 +1,7 @@
 import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
+import {fetchProductsInfo} from './ProductsActions';
 
 // ------ HomeBanner Action ------
 export const receieveHomeBanner = (results) => {
@@ -42,6 +43,7 @@ export const fetchHomeBannerInfo = () => {
       option: Utils.addToken(options),
       successCallback: (response) => {
         dispatch(receieveHomeBanner(response.data));
+        dispatch(fetchProductsInfo(1, 3, 'updatedAt'));
       },
       failureCallback: (error) => {
         dispatch(fetchingHomeBannerError(error));

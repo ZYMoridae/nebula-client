@@ -8,6 +8,8 @@ import 'react-animated-slider/build/horizontal.css';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Grid from '@material-ui/core/Grid';
+import Fade from '@material-ui/core/Fade';
+import ProductItem from '../components/ProductItem'; 
 
 const styles = theme => ({
   root: {
@@ -57,68 +59,89 @@ const content = [{
   image: "https://i.imgur.com/DvmN8Hx.jpg"
 }]
 
+
+
 class Home extends Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    const { fetchHomeBannerInfo } = this.props;
+    const { fetchHomeBannerInfo, fetchFeaturedProducts} = this.props;
     fetchHomeBannerInfo();
+    fetchFeaturedProducts(1, 3);
   }
 
   render() {
-    const { classes, info } = this.props;
+    const { classes, info, featuredProducts, isFetchedProducts } = this.props;
 
     return (
       <div className={styles.root}>
-        <Grid container spacing={0}>
-          <Grid item xs={1} md={2} xl={3}>
+        <Fade in={true} timeout={1000}>
+          <Grid container spacing={0}>
+            <Grid item xs={1} md={2} xl={3}>
 
-          </Grid>
-          <Grid item xs={10} md={8} xl={6}>
-            <Slider autoplay={3000} previousButton={<ChevronLeft fontSize='large' className={classes.nav}/>} nextButton={<ChevronRight fontSize='large' className={classes.nav}/>}>
-              {info.map((promotion, index) => 
-                <div key={index} style={{ background: `url('${promotion.imageUrl}') no-repeat center center` }}>
-                  <div className={classes.promotionMetaContainer}>
-                    <Typography variant="h3" gutterBottom className={classes.title}>
-                      {promotion.title}
-                    </Typography>
-                    <Typography variant="subtitle2" gutterBottom>
-                      {promotion.description}
-                    </Typography>
+            </Grid>
+            <Grid item xs={10} md={8} xl={6}>
+              <Slider autoplay={3000} previousButton={<ChevronLeft fontSize='large' className={classes.nav}/>} nextButton={<ChevronRight fontSize='large' className={classes.nav}/>}>
+                {info.map((promotion, index) => 
+                  <div key={index} style={{ background: `url('${promotion.imageUrl}') no-repeat center center` }}>
+                    <div className={classes.promotionMetaContainer}>
+                      <Typography variant="h3" gutterBottom className={classes.title}>
+                        {promotion.title}
+                      </Typography>
+                      <Typography variant="subtitle2" gutterBottom>
+                        {promotion.description}
+                      </Typography>
+                    </div>
                   </div>
+                )}
+              </Slider>
+            
+              <div className={classes.blockContainer}>
+                {/* <Fab
+                  variant="extended"
+                  size="medium"
+                  color="primary"
+                  aria-label="Add"
+                  href="/products"
+                >
+                  <HomeIcon />
+                  Products
+                </Fab> */}
+                <div className={classes.productsHero}>
+                  <a href="/products" style={{textDecoration: 'none'}}>
+                    <Typography variant="h6" gutterBottom className={classes.nav}>
+                      Featured Products
+                    </Typography>
+                  </a>
                 </div>
-              )}
-            </Slider>
-          
-            <div className={classes.blockContainer}>
-              {/* <Fab
-                variant="extended"
-                size="medium"
-                color="primary"
-                aria-label="Add"
-                href="/products"
-              >
-                <HomeIcon />
-                Products
-              </Fab> */}
-              <div className={classes.productsHero}>
-                <a href="/products" style={{textDecoration: 'none'}}>
-                  <Typography variant="h6" gutterBottom className={classes.nav}>
-                    Featured Products
-                  </Typography>
-                </a>
               </div>
-            </div>
+
+              <Grid container spacing={40} className={classes.blockContainer}>
+                {
+                    isFetchedProducts && Array.isArray(featuredProducts) ?
+                    featuredProducts.map((product, index) =>
+                          <Grid item xs={6} sm={6} lg={4} key={index}>
+                            <ProductItem product={product}>
+                            </ProductItem>
+                          </Grid>
+
+                      ) : ''
+                }
+              </Grid>
+
+            </Grid>
+            
+
+            <Grid item xs={1} md={2} xl={3}>
+
+            </Grid>
           </Grid>
-          <Grid item xs={1} md={2} xl={3}>
-
-          </Grid>
-        </Grid>
+        </Fade>
 
 
-
+ 
 
       </div>
     )

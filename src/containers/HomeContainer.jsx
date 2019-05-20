@@ -1,14 +1,18 @@
 import { connect } from 'react-redux';
 import Home from '../components/Home';
 import {
-  fetchHomeBannerInfo
+  fetchHomeBannerInfo,
+  fetchProductsInfo
 } from '../actions';
 
 const mapStateToProps = state => {
   return {
     info: state.HomeReducer.info,
     isFetchingHomeBanner: state.HomeReducer.isFetchingHomeBanner,
-    isFetchedHomeBanner: state.HomeReducer.isFetchedHomeBanner
+    isFetchedHomeBanner: state.HomeReducer.isFetchedHomeBanner,
+    featuredProducts: state.HomeReducer.featuredProducts,
+    isFetchingProducts: state.HomeReducer.isFetchingProducts,
+    isFetchedProducts: state.HomeReducer.isFetchedProducts
   }
 }
 
@@ -17,6 +21,9 @@ const mapDispatchToProps = dispatch => {
     dispatch,
     fetchHomeBannerInfo: () => {
       dispatch(fetchHomeBannerInfo());
+    },
+    fetchFeaturedProducts: (page, perPage) => {
+      dispatch(fetchProductsInfo(page, perPage, 'updatedAt'));
     }
   }
 }
