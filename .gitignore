@@ -64,3 +64,6 @@ typings/
 
 # zip file
 *.zip
+
+# Ignore dist
+dist/

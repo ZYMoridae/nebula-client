@@ -9,7 +9,9 @@ const styles = theme => ({
 		paddingBottom: theme.spacing.unit * 2
 	},
 	footerText: {
-		color: 'white'
+		color: 'white',
+		paddingLeft: theme.spacing.unit * 2,
+		paddingRight: theme.spacing.unit * 2
 	},
 	linkContainer: {
 		textAlign: 'center',
@@ -46,8 +48,11 @@ class Footer extends Component {
 					</a>
 					<a href='/' className={classes.linkItem}>
 						Cookies
-					</a> © 2019, Nebula
+					</a>
         </Typography>
+				<Typography variant="caption" gutterBottom align="center" className={classes.footerText}>
+					© 2019, Nebula
+				</Typography>
 			</div>
 		)
 	}

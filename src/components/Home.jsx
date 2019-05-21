@@ -9,7 +9,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
-import ProductItem from '../components/ProductItem'; 
+import FeaturedProduct from '../components/home/FeaturedProduct'; 
 
 const styles = theme => ({
   root: {
@@ -122,9 +122,9 @@ class Home extends Component {
                 {
                     isFetchedProducts && Array.isArray(featuredProducts) ?
                     featuredProducts.map((product, index) =>
-                          <Grid item xs={6} sm={6} lg={4} key={index}>
-                            <ProductItem product={product}>
-                            </ProductItem>
+                          <Grid item xs={12} sm={6} lg={4} key={index}>
+                            <FeaturedProduct product={product}>
+                            </FeaturedProduct>
                           </Grid>
 
                       ) : ''

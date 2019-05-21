@@ -26,7 +26,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2
   },
   table: {
-    minWidth: 700,
+    minWidth: '100%',
   },
   shoppingItemName: {
     color: '#0066c0',
@@ -180,8 +180,8 @@ class ShoppingCart extends Component {
     return (
       <div className={classes.root}>
         <Grid container >
-          <Grid item xs={2}></Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={2}></Grid>
+          <Grid item xs={12} sm={8}>
 
             <Table className={classes.table}>
               <TableHead>
@@ -291,7 +291,7 @@ class ShoppingCart extends Component {
               </Button>
             </div>
           </Grid>
-          <Grid item xs={2}></Grid>
+          <Grid item xs={12} sm={2}></Grid>
         </Grid>
       </div>
 

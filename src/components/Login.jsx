@@ -52,10 +52,12 @@ const styles = theme => ({
   },
   loginContainer: {
     padding: theme.spacing.unit * 3,
-    marginTop: '250px',
+    marginTop: '150px',
     display: 'flex',
     flexWrap: 'wrap',
-    width: 350
+    width: 350,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2
   },
   loginButton: {
     marginTop: theme.spacing.unit * 2

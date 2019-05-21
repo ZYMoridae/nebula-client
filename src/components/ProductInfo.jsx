@@ -160,17 +160,17 @@ class ProductInfo extends Component {
         {info &&
           <Fade in={true} timeout={1000}>
             <Grid container >
-              <Grid item xs={2}>
-                <ProductCategorySideBarContainer></ProductCategorySideBarContainer>
+              <Grid item xs={1} sm={2}>
+                {/* <ProductCategorySideBarContainer></ProductCategorySideBarContainer> */}
               </Grid>
 
-              <Grid item xs={8} className={classes.container}>
+              <Grid item xs={10} sm={8} className={classes.container}>
                 <Grid container>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
                     <ImageGallery items={images} showNav={false} showPlayButton={false} autoPlay={true} lazyLoad={true} useBrowserFullscreen={false} />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     <div className={classes.metaContainer}>
                       <Typography variant="h6" gutterBottom>
                         {_.capitalize(info.name)}
@@ -230,7 +230,7 @@ class ProductInfo extends Component {
                   </Grid>
                 </Grid>
                 <Divider className={classes.divider} />
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <Typography variant="h6" gutterBottom>
                     Product Information
                 </Typography>
@@ -261,7 +261,7 @@ class ProductInfo extends Component {
                   </div>
                 </Grid>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={1} sm={2}>
 
               </Grid>
             </Grid>
