@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import Routes from './Routes';
 
 function callbackHandler(target, callback) {
 	if (callback && typeof callback === 'function') {
@@ -30,10 +31,19 @@ class Zjax {
 		if (failureCallback && typeof failureCallback === 'function') {
 			// Handle 401 error
 			_axios.catch((error) => {
-
+				console.log(error);
+				switch(error.response.status) {
+					case 401:
+					case 504:
+						sessionStorage.removeItem('token');
+					case 403:
+						{
+							sessionStorage.removeItem('token');
+							location.href = Routes.USER.LOGIN;
+						}
+				}
 				if (error.response.status == 401 || error.response.status == 403 || error.response.status == 504) {
 					sessionStorage.removeItem('token');
-					location.href = '/login';
 				}
 			});
 			_axios.catch(failureCallback);

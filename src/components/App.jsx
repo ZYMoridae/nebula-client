@@ -1,7 +1,9 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch,
+  Redirect
 } from 'react-router-dom'
 import HeaderBarContainer from '../containers/HeaderBarContainer';
 import HomeContainer from '../containers/HomeContainer';
@@ -18,7 +20,8 @@ import Footer from './Footer';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import Utils from '../utils/Utils';
+import Routes from '../utils/Routes';
+
 
 const nebulaTheme = createMuiTheme({
   typography: {
@@ -113,17 +116,20 @@ class App extends React.Component {
       <Router>
         <MuiThemeProvider theme={nebulaTheme}>
           <div>
-            {Utils.isUserLogin() && <HeaderBarContainer></HeaderBarContainer>}
+            <HeaderBarContainer></HeaderBarContainer>
 
-            <PrivateRoute exact path="/" component={Home} />
-            <PrivateRoute exact path="/products" component={Products} />
-            <PrivateRoute exact path="/products/:id" component={ProductInfo} />
-            <PrivateRoute exact path="/cart" component={CartInfo} />
-            <PrivateRoute exact path="/payment" component={PaymentComponent} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/products" component={Products} />
+              <Route exact path="/products/:id" component={ProductInfo} />
+              <PrivateRoute exact path="/cart" component={CartInfo} />
+              <PrivateRoute exact path="/payment" component={PaymentComponent} />
 
-            <Route exact path="/login" component={Login} />
+              <Route exact path={Routes.USER.LOGIN} component={Login} />
+              <Redirect to="/" />
+            </Switch>
 
-            {Utils.isUserLogin() && <Footer></Footer>}
+            <Footer></Footer>
           </div>
         </MuiThemeProvider>
       </Router>

@@ -32,7 +32,7 @@ const styles = theme => ({
     }),
   },
   priceCaption: {
-    color: '#B12704'
+    color: '#ff5000'
   },
   productItemLink: {
     textDecoration: 'none',
@@ -51,12 +51,12 @@ const styles = theme => ({
   rightIcon: {
     marginLeft: theme.spacing.unit,
   },
-  cardHeader: {
-    padding: theme.spacing.unit * 2
+  cardContent: {
+    padding: '16px !important'
   }
 });
 
-class FeaturedProduct extends React.Component {
+class TodayDealsProduct extends React.Component {
   componentWillMount() {
     this.setState({ expanded: false });
     this.handleExpandClick = () => {
@@ -69,11 +69,10 @@ class FeaturedProduct extends React.Component {
     
     return (
       <Card className={classes.card}>
-        <CardHeader
-          className={classes.cardHeader}
+        {/* <CardHeader
           title={
             <a className={classes.productItemLink} href={`/products/${product.id}`}>
-              <Typography variant="subtitle2" className={classes.productItemLink} color="primary" gutterBottom>
+              <Typography variant="h6" className={classes.productItemLink} color="primary" gutterBottom>
                 {_.capitalize(product.name)}
               </Typography>
             </a>
@@ -83,17 +82,17 @@ class FeaturedProduct extends React.Component {
           //     by {product.vendor.username}
           //   </Typography>
           // }
-        />
+        /> */}
         <CardMedia
           className={classes.media}
           image="https://lh3.googleusercontent.com/0Frw5c1X3AjrrqHgsK7tIz-uNQQfzGrVmg86UKxs5M8zJpuBrNPqnCqerPJFHuHACIEm-dsEQy1zFWOnjQ=rw"
           title="Paella dish"
         />
-        {/* <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography variant="subtitle2" className={classes.priceCaption} gutterBottom>
             ${product.price}
           </Typography>
-        </CardContent> */}
+        </CardContent>
         {/* <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Share">
             <ShareIcon />
@@ -131,8 +130,8 @@ class FeaturedProduct extends React.Component {
   }
 }
 
-FeaturedProduct.propTypes = {
+TodayDealsProduct.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FeaturedProduct);
+export default withStyles(styles)(TodayDealsProduct);

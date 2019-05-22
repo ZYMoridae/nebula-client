@@ -18,6 +18,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import NebulaIcon from '../components/NebulaIcon';
+import Routes from '../utils/Routes';
 
 const styles = theme => ({
   root: {
@@ -129,7 +130,7 @@ class PrimarySearchAppBar extends React.Component {
     this.handleLogout = () => {
       sessionStorage.removeItem('user');
       sessionStorage.removeItem('token');
-      location.href = '/login';
+      location.href = Routes.USER.LOGIN;
     }
   }
  
