@@ -74,16 +74,16 @@ const BlockComponent = (props) => {
           <a href="/products" style={{ textDecoration: 'none' }}>
             <Typography variant="h6" gutterBottom className={classes.nav}>
               {title}
-                    </Typography>
+            </Typography>
           </a>
         </div>
       </div>
 
-      <Grid container spacing={40} className={classes.fetchedProductsContainer}>
+      <Grid container spacing={32} className={classes.fetchedProductsContainer}>
         {
           isFetchedProducts && Array.isArray(items) ?
             items.map((product, index) =>
-              <Grid item xs={12} sm={6} lg={4} key={index}>
+              <Grid item xs={12} sm={6} lg={3} key={index}>
                 <TagName product={product} />
               </Grid>
 
@@ -103,7 +103,7 @@ class Home extends Component {
   componentDidMount() {
     const { fetchHomeBannerInfo, fetchFeaturedProducts } = this.props;
     fetchHomeBannerInfo();
-    fetchFeaturedProducts(1, 3);
+    fetchFeaturedProducts(1, 4);
   }
 
   render() {
@@ -134,7 +134,7 @@ class Home extends Component {
 
 
               <BlockComponent classes={classes} title={'Featured Products'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={FeaturedProduct}></BlockComponent>
-              
+
               <BlockComponent classes={classes} title={'Today\'s Deals'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={TodayDealsProduct}></BlockComponent>
 
               <BlockComponent classes={classes} title={'Recommend For You'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={RecommendProduct}></BlockComponent>

@@ -51,7 +51,7 @@ class Footer extends Component {
 					</a>
         </Typography>
 				<Typography variant="caption" gutterBottom align="center" className={classes.footerText}>
-					© 2019, Nebula
+					© 2019, Max Studio
 				</Typography>
 			</div>
 		)

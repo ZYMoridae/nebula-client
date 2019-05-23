@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ShareIcon from '@material-ui/icons/Share';
 import _ from 'lodash';
+import Utils from '../../utils/Utils';
 
 const styles = theme => ({
   card: {
@@ -37,6 +38,7 @@ const styles = theme => ({
   productItemLink: {
     textDecoration: 'none',
     transition: 'all 0.3s',
+    margin: 0,
     '&:hover': {
       color: 'orange',
       transition: 'all 0.3s'
@@ -86,7 +88,7 @@ class FeaturedProduct extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image="https://lh3.googleusercontent.com/0Frw5c1X3AjrrqHgsK7tIz-uNQQfzGrVmg86UKxs5M8zJpuBrNPqnCqerPJFHuHACIEm-dsEQy1zFWOnjQ=rw"
+          image={Utils.getRandomProductImageUrl()}
           title="Paella dish"
         />
         {/* <CardContent>

@@ -28,6 +28,7 @@
     "react": "^16.4.2",
     "react-animated-slider": "^1.1.4",
     "react-cookie": "^3.0.8",
+    "react-device-detect": "^1.6.2",
     "react-dom": "^16.4.2",
     "react-image-gallery": "^0.8.14",
     "react-markdown": "^4.0.4",

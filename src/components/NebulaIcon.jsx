@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   nebulaIcon: {
-    height: '55px',
+    height: '30px',
     marginRight: theme.spacing.unit,
     verticalAlign: 'middle'
   }

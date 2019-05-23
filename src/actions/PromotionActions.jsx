@@ -43,7 +43,6 @@ export const fetchHomeBannerInfo = () => {
       option: Utils.addToken(options),
       successCallback: (response) => {
         dispatch(receieveHomeBanner(response.data));
-        dispatch(fetchProductsInfo(1, 3, 'updatedAt'));
       },
       failureCallback: (error) => {
         dispatch(fetchingHomeBannerError(error));

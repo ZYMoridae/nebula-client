@@ -211,7 +211,7 @@ class PrimarySearchAppBar extends React.Component {
                 <NebulaIcon />
                 <Typography variant="h6" color="inherit" noWrap>
                   <a href="/" className={classes.homeButton}>
-                    Nebula
+                    Max Studio
                   </a>
                 </Typography>
               </Toolbar>
