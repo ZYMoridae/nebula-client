@@ -29,21 +29,21 @@ class Zjax {
 			}
 		}
 		if (failureCallback && typeof failureCallback === 'function') {
-			// Handle 401 error
 			_axios.catch((error) => {
 				console.log(error);
-				switch(error.response.status) {
+				switch (error.response.status) {
 					case 401:
 					case 504:
 						sessionStorage.removeItem('token');
+						break;
 					case 403:
 						{
 							sessionStorage.removeItem('token');
 							location.href = Routes.USER.LOGIN;
+							break;
 						}
-				}
-				if (error.response.status == 401 || error.response.status == 403 || error.response.status == 504) {
-					sessionStorage.removeItem('token');
+					default:
+						break;
 				}
 			});
 			_axios.catch(failureCallback);

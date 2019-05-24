@@ -13,6 +13,8 @@ import Fade from '@material-ui/core/Fade';
 import FeaturedProduct from '../components/home/FeaturedProduct';
 import TodayDealsProduct from '../components/home/TodayDealsProduct';
 import RecommendProduct from '../components/home/RecommendProduct';
+import ContentLoader from "react-content-loader";
+import _ from 'lodash';
 
 const styles = theme => ({
   root: {
@@ -51,11 +53,29 @@ const styles = theme => ({
   }
 });
 
+const RenderLoadingPlaceholder = () => {
+  return (
+    <ContentLoader
+      height={250}
+      width={400}
+      speed={2}
+      primaryColor="#f3f3f3"
+      secondaryColor="#ecebeb"
+    >
+      <rect x="0" y="0" rx="5" ry="5" width="100%" height="180" />
+      <rect x="0" y="190" rx="3" ry="3" width="100" height="10" />
+      <rect x="120" y="190" rx="3" ry="3" width="200" height="10" />
+      <rect x="0" y="210" rx="3" ry="3" width="100%" height="10" />
+      <rect x="0" y="230" rx="3" ry="3" width="200" height="10" />
+      <rect x="220" y="230" rx="3" ry="3" width="80" height="10" />
+    </ContentLoader>
+  );
+}
 
 const BlockComponent = (props) => {
-  const { classes, isFetchedProducts, items, title } = props;
-
+  const { classes, isFetchedProducts, items, title, error } = props;
   const TagName = props.tag;
+  const contentLoadersArray = _.range(4);
 
   return (
     <div>
@@ -81,19 +101,21 @@ const BlockComponent = (props) => {
 
       <Grid container spacing={32} className={classes.fetchedProductsContainer}>
         {
-          isFetchedProducts && Array.isArray(items) ?
+          error == null && isFetchedProducts && Array.isArray(items) ?
             items.map((product, index) =>
               <Grid item xs={12} sm={6} lg={3} key={index}>
                 <TagName product={product} />
               </Grid>
-
-            ) : ''
+            ) : contentLoadersArray.map((item, index) =>
+              <Grid item xs={12} sm={6} lg={3} key={index}>
+                {RenderLoadingPlaceholder()}
+              </Grid>
+            )
         }
       </Grid>
     </div>
   )
 }
-
 
 class Home extends Component {
   constructor(props) {
@@ -107,8 +129,8 @@ class Home extends Component {
   }
 
   render() {
-    const { classes, info, featuredProducts, isFetchedProducts } = this.props;
-
+    const { classes, info, featuredProducts, isFetchedProducts, fetchProductsError, fetchHomeBannerError } = this.props;
+    console.log(fetchProductsError);
     return (
       <div className={styles.root}>
         <Fade in={true} timeout={1000}>
@@ -117,7 +139,7 @@ class Home extends Component {
 
             </Grid>
             <Grid item xs={10} md={8} xl={6}>
-              <Slider autoplay={3000} previousButton={<ChevronLeft fontSize='large' className={classes.nav} />} nextButton={<ChevronRight fontSize='large' className={classes.nav} />}>
+              {fetchHomeBannerError == null ? <Slider autoplay={3000} previousButton={<ChevronLeft fontSize='large' className={classes.nav} />} nextButton={<ChevronRight fontSize='large' className={classes.nav} />}>
                 {info.map((promotion, index) =>
                   <div key={index} style={{ background: `url('${promotion.imageUrl}') no-repeat center center` }}>
                     <div className={classes.promotionMetaContainer}>
@@ -130,18 +152,23 @@ class Home extends Component {
                     </div>
                   </div>
                 )}
-              </Slider>
+              </Slider> : <ContentLoader
+                height={170}
+                width={400}
+                speed={2}
+                primaryColor="#f3f3f3"
+                secondaryColor="#ecebeb"
+              >
+                  <rect x="0" y="10" width="400" height="160" rx="5" />
+                </ContentLoader>}
 
+              <BlockComponent classes={classes} title={'Featured Products'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={FeaturedProduct} error={fetchProductsError}></BlockComponent>
 
-              <BlockComponent classes={classes} title={'Featured Products'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={FeaturedProduct}></BlockComponent>
+              <BlockComponent classes={classes} title={'Today\'s Deals'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={TodayDealsProduct} error={fetchProductsError}></BlockComponent>
 
-              <BlockComponent classes={classes} title={'Today\'s Deals'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={TodayDealsProduct}></BlockComponent>
-
-              <BlockComponent classes={classes} title={'Recommend For You'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={RecommendProduct}></BlockComponent>
-
+              <BlockComponent classes={classes} title={'Recommend For You'} isFetchedProducts={isFetchedProducts} items={featuredProducts} tag={RecommendProduct} error={fetchProductsError}></BlockComponent>
 
             </Grid>
-
 
             <Grid item xs={1} md={2} xl={3}>
 

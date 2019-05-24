@@ -117,8 +117,8 @@ class App extends React.Component {
       <Router>
         <MuiThemeProvider theme={nebulaTheme}>
           <div>
-            <HeaderBarContainer></HeaderBarContainer>
-
+            {location.pathname !== Routes.USER.LOGIN && <HeaderBarContainer></HeaderBarContainer>}
+            
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/products" component={Products} />
@@ -130,7 +130,7 @@ class App extends React.Component {
               <Redirect to="/" />
             </Switch>
 
-            <Footer></Footer>
+            {location.pathname !== Routes.USER.LOGIN && <Footer></Footer>}
           </div>
         </MuiThemeProvider>
       </Router>

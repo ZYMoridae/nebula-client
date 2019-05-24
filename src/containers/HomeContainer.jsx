@@ -12,7 +12,9 @@ const mapStateToProps = state => {
     isFetchedHomeBanner: state.HomeReducer.isFetchedHomeBanner,
     featuredProducts: state.HomeReducer.featuredProducts,
     isFetchingProducts: state.HomeReducer.isFetchingProducts,
-    isFetchedProducts: state.HomeReducer.isFetchedProducts
+    isFetchedProducts: state.HomeReducer.isFetchedProducts,
+    fetchProductsError: state.HomeReducer.fetchProductsError,
+    fetchHomeBannerError: state.HomeReducer.fetchHomeBannerError
   }
 }
 
