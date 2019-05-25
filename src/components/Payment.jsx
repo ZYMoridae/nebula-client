@@ -8,10 +8,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PaymentOrder from './payment/PaymentOrder';
+import AddressForm from './payment/AddressForm';
 
 const styles = theme => ({
   root: {
-    width: '90%',
+    // width: '90%',
+    marginTop: theme.spacing.unit * 5
   },
   button: {
     marginRight: theme.spacing.unit,
@@ -27,6 +29,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
   },
   stepControllerContainer: {
+    marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 5,
     textAlign: 'center'
   },
@@ -98,6 +101,7 @@ class Payment extends Component {
     return (
       <div>
         {activeStep == 0 && <PaymentOrder {...props} classes={classes}/>}
+        {activeStep == 1 && <AddressForm {...props} classes={classes}/>}
       </div>
     )
   }
@@ -228,7 +232,7 @@ class Payment extends Component {
                 </div>
               ) : (
                   <div>
-                    <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                    {/* <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography> */}
                     <div>
                       <Button
                         disabled={activeStep === 0}
@@ -243,7 +247,7 @@ class Payment extends Component {
                         onClick={handleNext}
                         className={classes.button}
                       >
-                        Next
+                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'} 
                 </Button>
                       {isStepOptional(activeStep) &&
                         !this.state.completed.has(this.state.activeStep) && (
@@ -256,7 +260,7 @@ class Payment extends Component {
                             Skip
                     </Button>
                         )}
-                      {activeStep !== steps.length &&
+                      {/* {activeStep !== steps.length &&
                         (this.state.completed.has(this.state.activeStep) ? (
                           <Typography variant="caption" className={classes.completed}>
                             Step {activeStep + 1} already completed
@@ -265,7 +269,7 @@ class Payment extends Component {
                             <Button variant="contained" color="primary" onClick={this.handleComplete}>
                               {this.completedSteps() === this.totalSteps() - 1 ? 'Finish' : 'Complete Step'}
                             </Button>
-                          ))}
+                          ))} */}
                     </div>
                   </div>
                 )}

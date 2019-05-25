@@ -176,7 +176,7 @@ class ShoppingCart extends Component {
       let maxQuantity = quantity > 20 ? 20 : quantity;
       return [...Array(maxQuantity).keys()].map(item => ++item);
     };
-
+    console.log(info);
     return (
       <div className={classes.root}>
         <Grid container >

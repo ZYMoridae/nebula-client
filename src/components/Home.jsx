@@ -15,6 +15,8 @@ import TodayDealsProduct from '../components/home/TodayDealsProduct';
 import RecommendProduct from '../components/home/RecommendProduct';
 import ContentLoader from "react-content-loader";
 import _ from 'lodash';
+import IconButton from '@material-ui/core/IconButton';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 const styles = theme => ({
   root: {
@@ -46,10 +48,22 @@ const styles = theme => ({
   },
   productsHero: {
     width: '100%',
-    borderBottom: '1px solid #d3d3d3'
+    borderBottom: '1px solid #d3d3d3',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   fetchedProductsContainer: {
     marginBottom: theme.spacing.unit * 3
+  },
+  renewIcon: {
+    paddingTop: '4px',
+    textAlign: 'right',
+    color: theme.palette.primary.main,
+    transition: 'all 0.5s',
+    '&:hover': {
+      color: '#d14d12',
+      transition: 'all 0.5s'
+    }
   }
 });
 
@@ -76,7 +90,10 @@ const BlockComponent = (props) => {
   const { classes, isFetchedProducts, items, title, error } = props;
   const TagName = props.tag;
   const contentLoadersArray = _.range(4);
-
+  const renewClicked = () => {
+    console.log('clicked');
+  };
+  
   return (
     <div>
       <div className={classes.blockContainer}>
@@ -91,11 +108,14 @@ const BlockComponent = (props) => {
                   Products
                 </Fab> */}
         <div className={classes.productsHero}>
-          <a href="/products" style={{ textDecoration: 'none' }}>
+          <a href="/products" style={{ textDecoration: 'none'}}>
             <Typography variant="h6" gutterBottom className={classes.nav}>
               {title}
             </Typography>
           </a>
+          <span>
+            <AutorenewIcon className={classes.renewIcon} onClick={renewClicked}/>
+          </span>
         </div>
       </div>
 
