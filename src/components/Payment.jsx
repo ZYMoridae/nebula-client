@@ -7,8 +7,11 @@ import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+
 import PaymentOrder from './payment/PaymentOrder';
 import AddressForm from './payment/AddressForm';
+import PaymentMethod from './payment/PaymentMethod';
+import {isMobile} from 'react-device-detect';
 
 const styles = theme => ({
   root: {
@@ -35,7 +38,32 @@ const styles = theme => ({
   },
   // The bellow styles will apply to Payment Order page
   paymentOrderContainer: {
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 4
+  },
+  textField: {
+
+  },
+  gridItem: {
+    paddingTop: '0px !important',
+    paddingBottom: '0px !important'
+  },
+  gridContainer: {
+    marginBottom: theme.spacing.unit * 8,
+    marginTop: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 8,
+    paddingRight: theme.spacing.unit * 8
+  },
+  paymentMethodContainer: {
+    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 4
+  },
+  paymentMethodInputContainer: {
+    paddingRight: isMobile ? '0' : theme.spacing.unit * 8,
+    marginTop: isMobile ? theme.spacing.unit * 2 : '0'
+  },
+  ccBlockMobile: {
+    padding: '0 !important'
   }
 });
 
@@ -102,9 +130,17 @@ class Payment extends Component {
       <div>
         {activeStep == 0 && <PaymentOrder {...props} classes={classes}/>}
         {activeStep == 1 && <AddressForm {...props} classes={classes}/>}
+        {activeStep == 2 && <PaymentMethod {...props} classes={classes}/>}
       </div>
     )
   }
+
+  componentWillMount() {
+    const { fetchActivateOrder, orderId } = this.props;
+
+    fetchActivateOrder(orderId);
+  }
+
 
   render() {
     const { classes } = this.props;

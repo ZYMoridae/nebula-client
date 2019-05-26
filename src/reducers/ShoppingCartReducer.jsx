@@ -4,7 +4,11 @@ let initState = {
   isFetchingShoppingCart: false,
   isFetchedShoppingCart: false,
   cartItems: [],
-  info: []
+  info: [],
+  isCreatingOrder: false,
+  isCreatedOrder: false,
+  orderCreationError: null,
+  orderInfo: null
 }
 const shoppingCartReducer = (state = initState, action) => {
   switch (action.type) {
@@ -28,6 +32,23 @@ const shoppingCartReducer = (state = initState, action) => {
       return Object.assign({}, state, {
         cartItems: action.cartItems
       })
+    case ActionType.CREATING_ORDERS_PENDING:
+      return Object.assign({}, state, {
+        isCreatingOrder: action.isCreatingOrder,
+        isCreatedOrder: action.isCreatedOrder
+      })
+    case ActionType.CREATING_ORDERS_REJECTED:
+      return Object.assign({}, state, {
+        isCreatingOrder: action.isCreatingOrder,
+        isCreatedOrder: action.isCreatedOrder,
+        orderCreationError: action.error
+      })
+    case ActionType.RECEIVE_ORDER:
+      return Object.assign({}, state, {
+        isCreatingOrder: action.isCreatingOrder,
+        isCreatedOrder: action.isCreatedOrder,
+        orderInfo: action.info
+      })      
     default:
       return state
   }

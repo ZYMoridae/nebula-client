@@ -120,7 +120,9 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { info, classes, proceedShoppingCart } = this.props;
+    const { info, classes, proceedShoppingCart, createOrder } = this.props;
+
+    // info = _.orderBy(info, ['id'], ['asc']);
 
     let _itemCheckedState = [];
     info.forEach(row => {
@@ -138,7 +140,7 @@ class ShoppingCart extends Component {
       info.forEach((cartItem, index) => {
         if (this.state.itemCheckedState[index]) {
           let checkoutItem = {
-            id: cartItem.product.id,
+            productId: cartItem.product.id,
             quantity: this.state.itemQuantity[index] == undefined ? cartItem.quantity : this.state.itemQuantity[index]
           };
           productForCheckout.push(checkoutItem);
@@ -148,8 +150,14 @@ class ShoppingCart extends Component {
       // TODO: Checkout action
       localStorage.setItem('_pfc', JSON.stringify(productForCheckout));
 
+      // TODO: Fixed shipper id
+      createOrder({
+        orderItems: productForCheckout,
+        shipperId: 6
+      });
+
       proceedShoppingCart(productForCheckout);
-      window.location.href = '/payment';
+      // window.location.href = '/payment';
     };
 
     const itemQuantityChangeHandler = index => event => {

@@ -134,7 +134,7 @@ export const fetchProductsByIds = (ids) => {
       url: '/api/products/ids',
       option: Utils.addToken(options),
       successCallback: (response) => {
-        dispatch(receieveProductsByIds(response.data.content));
+        dispatch(receieveProductsByIds(response.data));
       },
       failureCallback: (error) => {
         dispatch(fetchingProductsByIdsError(error));

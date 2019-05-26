@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import {
-  doPayment
+  doPayment,
+  fetchProductsByIds,
+  fetchActivateOrder
 } from '../actions';
 import Payment from '../components/Payment';
 
@@ -9,7 +11,11 @@ const mapStateToProps = state => {
     info: state.PaymentReducer.info,
     isPaymentProcessing: state.PaymentReducer.isPaymentProcessing,
     isPaid: state.PaymentReducer.isPaid,
-    cartItems: state.ShoppingCartReducer.cartItems
+    cartItems: state.ShoppingCartReducer.cartItems,
+    isFetchingActivateOrder: state.PaymentReducer.isFetchingActivateOrder,
+    isFetchedActivateOrder: state.PaymentReducer.isFetchedActivateOrder,
+    activateOrder: state.PaymentReducer.activateOrder,
+    fetchingActivateOrderError: state.PaymentReducer.fetchingActivateOrderError
   }
 }
 
@@ -18,7 +24,11 @@ const mapDispatchToProps = dispatch => {
     dispatch,
     doPayment: () => {
       dispatch(doPayment());
-    }
+    },
+    fetchActivateOrder: (orderId) => {
+      dispatch(fetchActivateOrder(orderId));
+    },
+
   }
 }
 

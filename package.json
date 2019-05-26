@@ -29,6 +29,7 @@
     "react-animated-slider": "^1.1.4",
     "react-content-loader": "^4.2.1",
     "react-cookie": "^3.0.8",
+    "react-credit-cards": "^0.7.0",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.4.2",
     "react-image-gallery": "^0.8.14",

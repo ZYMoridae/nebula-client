@@ -103,10 +103,10 @@ const CartInfo = () => {
   )
 }
 
-const PaymentComponent = () => {
+const PaymentComponent = ({ match }) => {
   return (
     <div>
-      <PaymentContainer></PaymentContainer>
+      <PaymentContainer orderId={match.params.orderId}></PaymentContainer>
     </div>
   )
 }
@@ -124,7 +124,7 @@ class App extends React.Component {
               <Route exact path="/products" component={Products} />
               <Route exact path="/products/:id" component={ProductInfo} />
               <PrivateRoute exact path="/cart" component={CartInfo} />
-              <PrivateRoute exact path="/payment" component={PaymentComponent} />
+              <PrivateRoute exact path="/payment/:orderId" component={PaymentComponent} />
 
               <Route exact path={Routes.USER.LOGIN} component={Login} />
               <Redirect to="/" />

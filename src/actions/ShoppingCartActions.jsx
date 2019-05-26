@@ -41,7 +41,8 @@ export const fetchShoppingCartInfo = () => {
       url: `/api/carts/my`,
       option: Utils.addToken(options),
       successCallback: (response) => {
-        dispatch(receieveShoppingCart(response.data.cartItems));
+        let orderedCartItems = _.orderBy(response.data.cartItems, ['id'], ['asc']);
+        dispatch(receieveShoppingCart(orderedCartItems));
       },
       failureCallback: (error) => {
         dispatch(fetchingShoppingCartError(error));
