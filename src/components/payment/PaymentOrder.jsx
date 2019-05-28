@@ -11,7 +11,6 @@ import TableRow from '@material-ui/core/TableRow';
 class PaymentOrder extends Component {
 
   calculateTotalAmount(orderItems) {
-    console.log(orderItems.map(orderItem => orderItem.quantity * orderItem.product.price));
     return orderItems.map(orderItem => orderItem.quantity * orderItem.product.price)
             .reduce((total, sum) => total + sum, 0);
   }
@@ -51,10 +50,10 @@ class PaymentOrder extends Component {
 
             </TableBody>
           </Table>
-          <Typography variant="h6" gutterBottom align="right" style={{color: '#ff5000'}}>
+          <Typography variant="h6" gutterBottom align="right" style={{color: '#ff5000', marginTop: '10px'}}>
             Total Amount:
               <span style={{marginLeft: '5px'}}>
-              ${totalAmount}
+                ${totalAmount.toFixed(2)}
               </span>
           </Typography>
         </Paper>

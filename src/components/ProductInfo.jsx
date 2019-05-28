@@ -100,8 +100,8 @@ class ProductInfo extends Component {
 
 
   render() {
-    const { classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments } = this.props;
-
+    const { classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments, isAddingCartItem } = this.props;
+    
     let maxQuantity = 20;
 
     if (info.unitsInStock != undefined && info.unitsInStock > 0 && info.unitsInStock < 20) {
@@ -215,7 +215,7 @@ class ProductInfo extends Component {
                         </FormControl>
                       </div>
                       <div>
-                        <Button variant="contained" className={classes.button} fullWidth={true} onClick={() => { addCartButtonClickHandler() }}>
+                        <Button variant="contained" className={classes.button} disabled={isAddingCartItem} fullWidth={true} onClick={() => { addCartButtonClickHandler() }}>
                           <ShoppingCart className={classes.leftIcon} />
                           Add to cart
                       </Button>

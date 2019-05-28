@@ -43,6 +43,7 @@ export const createOrder = (data) => {
       option: Utils.addToken(options),
       successCallback: (response) => {
         dispatch(receieveOrder(response.data));
+        dispatch(redirectToPaymentPage(response.data.id));
       },
       failureCallback: (error) => {
         dispatch(creatingOrderError(error));
@@ -100,5 +101,9 @@ export const fetchActivateOrder = (orderId) => {
       }
     });
   }
+}
+
+export const redirectToPaymentPage = (orderId) => {
+  location.href = `/payment/${orderId}`;
 }
 

@@ -120,7 +120,7 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { info, classes, proceedShoppingCart, createOrder } = this.props;
+    const { info, classes, proceedShoppingCart, createOrder, isCreatingOrder } = this.props;
 
     // info = _.orderBy(info, ['id'], ['asc']);
 
@@ -149,6 +149,11 @@ class ShoppingCart extends Component {
 
       // TODO: Checkout action
       localStorage.setItem('_pfc', JSON.stringify(productForCheckout));
+
+      // TODO: Product validation
+      if (productForCheckout.length == 0) {
+        return;
+      }
 
       // TODO: Fixed shipper id
       createOrder({
@@ -184,6 +189,22 @@ class ShoppingCart extends Component {
       let maxQuantity = quantity > 20 ? 20 : quantity;
       return [...Array(maxQuantity).keys()].map(item => ++item);
     };
+
+    const calculateItemPrice = (rowQuantity, userSelectedQuantity, product) => {
+      let quantity = -1;
+      console.log(rowQuantity, product);
+
+      if (rowQuantity <= product.unitsInStock) {
+        if (userSelectedQuantity == undefined) {
+          quantity = rowQuantity;
+        } else {
+          quantity = userSelectedQuantity;
+        }
+      }
+
+      return quantity == -1 ? 'N/A' : `$${(quantity * product.price).toFixed(2)}`;
+    };
+
     console.log(info);
     return (
       <div className={classes.root}>
@@ -209,7 +230,7 @@ class ShoppingCart extends Component {
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                       <Typography variant="h6" children={
-                        <a className={classes.shoppingItemName}>
+                        <a className={classes.shoppingItemName} href={`/products/${row.id}`}>
                           {row.product.name}
                         </a>
                       } gutterBottom>
@@ -235,7 +256,7 @@ class ShoppingCart extends Component {
                     </TableCell>
                     <TableCell align="right">
                       <Typography variant="h6" gutterBottom className={classes.itemPrice}>
-                        ${((this.state.itemQuantity[index] == undefined ? row.quantity : this.state.itemQuantity[index]) * row.product.price).toFixed(2)}
+                        {calculateItemPrice(row.quantity, this.state.itemQuantity[index], row.product)}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -294,7 +315,7 @@ class ShoppingCart extends Component {
               </span>
             </Typography>
             <div style={{ textAlign: 'right' }}>
-              <Button variant="contained" color="primary" size="large" onClick={handleCheckout}>
+              <Button variant="contained" color="primary" size="large" onClick={handleCheckout} disabled={isCreatingOrder ? true : false}>
                 Proceed to Checkout
               </Button>
             </div>
