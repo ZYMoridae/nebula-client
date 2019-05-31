@@ -6,9 +6,31 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 class PaymentAddressForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      inputValues: {}
+    };
+  }
+
+  componentWillMount() {
+    this.setState({
+      inputValues: this.props.shippingInfoFormData
+    });
+  }
+
 
   render() {
-    const { classes, info } = this.props;
+    const { classes, info, orderId, createShippingInfo, shippingInfo, shippingInfoFormInputChanged, shippingInfoFormData } = this.props;
+
+    const handleChange = name => event => {
+      let _inputValues = shippingInfoFormData;
+      _inputValues[name] = event.target.value;
+      this.setState({
+        inputValues: _inputValues
+      });
+      console.log(shippingInfoFormData);
+    };
 
     return (
       <div>
@@ -24,9 +46,10 @@ class PaymentAddressForm extends Component {
                 name="firstname"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.firstname ? this.state.inputValues.firstname : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('firstname')}
               />
             </Grid>
 
@@ -37,9 +60,10 @@ class PaymentAddressForm extends Component {
                 name="lastname"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.lastname ? this.state.inputValues.lastname : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('lastname')}
               />
             </Grid>
 
@@ -50,22 +74,24 @@ class PaymentAddressForm extends Component {
                 name="email"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.email ? this.state.inputValues.email : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('email')}
               />
             </Grid>
 
             <Grid item xs={12} md={6} className={classes.gridItem}>
               <TextField
                 id="outlined-name"
-                label="Phone"
-                name="phone"
+                label="Telephone"
+                name="telephone"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.telephone ? this.state.inputValues.telephone : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('telephone')}
               />
             </Grid>
 
@@ -73,12 +99,13 @@ class PaymentAddressForm extends Component {
               <TextField
                 id="outlined-name"
                 label="Postcode"
-                name="postcode"
+                name="postCode"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.postCode ? this.state.inputValues.postCode : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('postCode')}
               />
             </Grid>
 
@@ -89,9 +116,10 @@ class PaymentAddressForm extends Component {
                 name="address1"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.address1 ? this.state.inputValues.address1 : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('address1')}
               />
             </Grid>
 
@@ -102,9 +130,10 @@ class PaymentAddressForm extends Component {
                 name="address2"
                 className={classes.textField}
                 margin="normal"
+                value={this.state.inputValues.address2 ? this.state.inputValues.address2 : ''}
                 // variant="outlined"
                 fullWidth={true}
-              // onChange={(e) => { this.onChange(e) }}
+                onChange={handleChange('address2')}
               />
             </Grid>
 

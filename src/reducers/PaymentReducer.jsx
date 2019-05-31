@@ -7,7 +7,11 @@ let initState = {
   isFetchingActivateOrder: false,
   isFetchedActivateOrder: false,
   activateOrder: null,
-  fetchingActivateOrderError: null
+  fetchingActivateOrderError: null,
+  shippingInfo: null,
+  isCreatingShippingInfo: false,
+  isCreatedShippingInfo: false,
+  shippingInfoFormData: {}
 }
 const paymentReducer = (state = initState, action) => {
   switch (action.type) {
@@ -61,6 +65,26 @@ const paymentReducer = (state = initState, action) => {
         isFetchedProductsByIds: action.isFetchedProductsByIds,
         activateOrder: action.info
       })
+    case ActionType.RECEIVE_SHIPPINGINFO:
+      return Object.assign({}, state, {
+        isCreatingShippingInfo: action.isCreatingShippingInfo,
+        isCreatedShippingInfo: action.isCreatedShippingInfo,
+        shippingInfo: action.info
+      })
+    case ActionType.CREATING_SHIPPINGINFO_PENDING:
+        return Object.assign({}, state, {
+          isCreatingShippingInfo: action.isCreatingShippingInfo,
+          isCreatedShippingInfo: action.isCreatedShippingInfo
+        }) 
+    case ActionType.CREATING_SHIPPINGINFO_REJECTED:
+        return Object.assign({}, state, {
+          isCreatingShippingInfo: action.isCreatingShippingInfo,
+          isCreatedShippingInfo: action.isCreatedShippingInfo
+        })
+    case ActionType.SHIPPING_INFO_FORM_INPUT_CHANGED:
+        return Object.assign({}, state, {
+          shippingInfoFormData: action.info
+        })           
     default:
       return state
   }

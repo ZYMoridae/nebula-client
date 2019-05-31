@@ -35,14 +35,14 @@ export const doPayment = () => {
     dispatch(paymentPending());
 
     let options = {
-      method: 'get'
+      method: 'post'
     };
 
     Zjax.request({
-      url: `/api/carts/my`,
+      url: `/api/payments/finalise`,
       option: Utils.addToken(options),
       successCallback: (response) => {
-        dispatch(paymentSucess(response.data.cartItems));
+        dispatch(paymentSucess(response.data));
       },
       failureCallback: (error) => {
         dispatch(paymentError(error));

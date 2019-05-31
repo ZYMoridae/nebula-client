@@ -90,7 +90,7 @@ class Payment extends Component {
     this.state = {
       activeStep: 0,
       completed: new Set(),
-      skipped: new Set(),
+      skipped: new Set()
     };
   }
 
@@ -141,9 +141,8 @@ class Payment extends Component {
     fetchActivateOrder(orderId);
   }
 
-
   render() {
-    const { classes } = this.props;
+    const { classes, shippingInfoFormData, orderId, createShippingInfo} = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
 
@@ -170,20 +169,48 @@ class Payment extends Component {
       });
     };
 
+    const updateShippingInfo = () => {
+      if(!shippingInfoFormData.firstname 
+          || !shippingInfoFormData.lastname
+          || !shippingInfoFormData.email
+          || !shippingInfoFormData.telephone
+          || !shippingInfoFormData.postCode
+          || !shippingInfoFormData.address1
+          || !shippingInfoFormData.address2) {
+            return;
+          }
+      
+      // alert('Invalid form data!');
+        
+      createShippingInfo(orderId, shippingInfoFormData);
+    }
+
+
     const handleNext = () => {
       let activeStep;
+      
+      console.log(this.isLastStep());
 
-      if (this.isLastStep() && !this.allStepsCompleted()) {
-        // It's the last step, but not all steps have been completed
-        // find the first step that has been completed
-        const steps = getSteps();
-        activeStep = steps.findIndex((step, i) => !this.state.completed.has(i));
-      } else {
+
+      if (this.isLastStep()) {
+        console.log('222');
+        updateShippingInfo();
+      }else {
         activeStep = this.state.activeStep + 1;
+        this.setState({
+          activeStep,
+        });
       }
-      this.setState({
-        activeStep,
-      });
+      
+      // if (this.isLastStep() && !this.allStepsCompleted()) {
+      //   // It's the last step, but not all steps have been completed
+      //   // find the first step that has been completed
+      //   const steps = getSteps();
+      //   activeStep = steps.findIndex((step, i) => !this.state.completed.has(i));
+      // } else {
+        
+      // }
+
     };
 
     const handleBack = () => {
