@@ -30,7 +30,7 @@ export const creatingShippingInfoError = (err) => {
   }
 }
 
-export const createShippingInfo = (orderId, data) => {
+export const createShippingInfo = (orderId, data, creditCardInfo) => {
   
   return function (dispatch) {
     dispatch(creatingShippingInfo());
@@ -47,7 +47,7 @@ export const createShippingInfo = (orderId, data) => {
       option: Utils.addToken(options),
       successCallback: (response) => {
         dispatch(receieveShippingInfo(response.data));
-        dispatch(doPayment());
+        dispatch(doPayment(creditCardInfo));
         // dispatch(redirectToPaymentPage(response.data.id));
       },
       failureCallback: (error) => {

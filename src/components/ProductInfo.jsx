@@ -123,16 +123,16 @@ class ProductInfo extends Component {
 
     const images = [
       {
-        original: 'http://lorempixel.com/1000/600/nature/1/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+        original: 'https://upserve.com/media/sites/2/Ledger-Restaurant-Bar-brunch_Photo-courtesy-of-Ledger-1024x768.jpg',
+        thumbnail: 'https://upserve.com/media/sites/2/Ledger-Restaurant-Bar-brunch_Photo-courtesy-of-Ledger-1024x768.jpg',
       },
       {
-        original: 'http://lorempixel.com/1000/600/nature/2/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+        original: 'http://www.fabfoodchicago.com/wp-content/uploads/2017/05/IMG_4980-1024x768.jpg',
+        thumbnail: 'http://www.fabfoodchicago.com/wp-content/uploads/2017/05/IMG_4980-1024x768.jpg'
       },
       {
-        original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
+        original: 'http://www.hofbrauhaus.com.au/wp-content/uploads/2019/03/Farmer-Breakfast-1024x768.jpg',
+        thumbnail: 'http://www.hofbrauhaus.com.au/wp-content/uploads/2019/03/Farmer-Breakfast-1024x768.jpg'
       }
     ]
 
@@ -165,7 +165,7 @@ class ProductInfo extends Component {
               </Grid>
 
               <Grid item xs={10} sm={8} className={classes.container}>
-                <Grid container>
+                <Grid container spacing={40}>
                   <Grid item xs={12} sm={6}>
                     {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
                     <ImageGallery items={images} showNav={false} showPlayButton={false} autoPlay={true} lazyLoad={true} useBrowserFullscreen={false} />

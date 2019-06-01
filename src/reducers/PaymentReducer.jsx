@@ -11,7 +11,8 @@ let initState = {
   shippingInfo: null,
   isCreatingShippingInfo: false,
   isCreatedShippingInfo: false,
-  shippingInfoFormData: {}
+  shippingInfoFormData: {},
+  creditCardInfo: {}
 }
 const paymentReducer = (state = initState, action) => {
   switch (action.type) {

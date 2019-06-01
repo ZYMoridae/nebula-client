@@ -30,12 +30,13 @@ export const paymentError = (err) => {
 }
 
 
-export const doPayment = () => {
+export const doPayment = (creditCardInfo) => {
   return function (dispatch) {
     dispatch(paymentPending());
-
+    
     let options = {
-      method: 'post'
+      method: 'post',
+      data: creditCardInfo
     };
 
     Zjax.request({

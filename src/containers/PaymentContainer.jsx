@@ -21,7 +21,8 @@ const mapStateToProps = state => {
     shippingInfo: state.PaymentReducer.shippingInfo,
     isCreatingShippingInfo: state.PaymentReducer.isCreatingShippingInfo,
     isCreatedShippingInfo: state.PaymentReducer.isCreatedShippingInfo,
-    shippingInfoFormData: state.PaymentReducer.shippingInfoFormData    
+    shippingInfoFormData: state.PaymentReducer.shippingInfoFormData,
+    creditCardInfo: state.PaymentReducer.creditCardInfo    
   }
 }
 
@@ -34,9 +35,9 @@ const mapDispatchToProps = dispatch => {
     fetchActivateOrder: (orderId) => {
       dispatch(fetchActivateOrder(orderId));
     },
-    createShippingInfo: (orderId, shippingInfo) => {
+    createShippingInfo: (orderId, shippingInfo, creditCardInfo) => {
       console.log(shippingInfo);
-      dispatch(createShippingInfo(orderId, shippingInfo));
+      dispatch(createShippingInfo(orderId, shippingInfo, creditCardInfo));
     },
     shippingInfoFormInputChanged: (shippingInfoFormData) => {
       dispatch(shippingInfoFormInputChanged(shippingInfoFormData));

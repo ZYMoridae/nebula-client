@@ -11,8 +11,45 @@ import {isMobile} from 'react-device-detect';
 
 class PaymentMethod extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      info: {}
+    };
+  }
+
+  componentWillMount() {
+    this.setState({
+      info: this.props.creditCardInfo
+    });
+  }
+
+
   render() {
-    const { classes, info } = this.props;
+    const { classes, info, creditCardInfo } = this.props;
+
+    const handleChange = event => {
+      let _inputValues = creditCardInfo;
+      let value = event.target.value;
+
+      if(event.target.name == 'cardnumber') {
+        value = value.substring(0, 16);
+      }
+
+      if(event.target.name == 'expiry') {
+        value = value.substring(0, 4);
+      }
+
+      if(event.target.name == 'cvc') {
+        value = value.substring(0, 3);
+      }
+
+      _inputValues[event.target.name] = value;
+      this.setState({
+        info: _inputValues
+      });
+    };
+
 
     return (
       <div>
@@ -24,10 +61,10 @@ class PaymentMethod extends Component {
           <Grid container spacing={32} className={classes.paymentMethodContainer}>
             <Grid item xs={12} md={6} className={classes.gridItem + ' ' + isMobile ? classes.ccBlockMobile : ''}>
               <Cards
-                number={'5432543254325432'}
-                name={'Joe'}
-                expiry={'123'}
-                cvc={'123'}
+                number={this.state.info.cardnumber ? this.state.info.cardnumber : ''}
+                name={this.state.info.cardname ? this.state.info.cardname : ''}
+                expiry={this.state.info.expiry ? this.state.info.expiry : ''}
+                cvc={this.state.info.cvc ? this.state.info.cvc : ''}
                 focused={'true'}
               />
             </Grid>
@@ -39,11 +76,13 @@ class PaymentMethod extends Component {
                     id="outlined-name"
                     label="Card Number"
                     name="cardnumber"
+                    type="number"
                     className={classes.textField}
                     margin="normal"
+                    value={this.state.info.cardnumber ? this.state.info.cardnumber : ''}
                     // variant="outlined"
                     fullWidth={true}
-                  // onChange={(e) => { this.onChange(e) }}
+                    onChange={handleChange}
                   />
 
                 </Grid>
@@ -55,9 +94,10 @@ class PaymentMethod extends Component {
                     name="cardname"
                     className={classes.textField}
                     margin="normal"
+                    value={this.state.info.cardname ? this.state.info.cardname : ''}
                     // variant="outlined"
                     fullWidth={true}
-                  // onChange={(e) => { this.onChange(e) }}
+                    onChange={handleChange}
                   />
 
                 </Grid>
@@ -66,12 +106,15 @@ class PaymentMethod extends Component {
                   <TextField
                     id="outlined-name"
                     label="Expired Date"
-                    name="expire"
+                    name="expiry"
                     className={classes.textField}
                     margin="normal"
+                    value={this.state.info.expiry ? this.state.info.expiry : ''}
                     // variant="outlined"
                     fullWidth={true}
-                  // onChange={(e) => { this.onChange(e) }}
+                    onChange={handleChange}
+                    type="number"
+                    inputProps={{min: "0", max: "9999"}}
                   />
 
                 </Grid>
@@ -80,14 +123,15 @@ class PaymentMethod extends Component {
                   <TextField
                     id="outlined-name"
                     label="CVV"
-                    name="cvv"
+                    name="cvc"
                     className={classes.textField}
                     margin="normal"
+                    value={this.state.info.cvc ? this.state.info.cvc : ''}
+                    type="number"
                     // variant="outlined"
                     fullWidth={true}
-                  // onChange={(e) => { this.onChange(e) }}
+                    onChange={handleChange}
                   />
-
                 </Grid>
               </Grid>
             </Grid>

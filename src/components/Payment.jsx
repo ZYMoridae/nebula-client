@@ -142,7 +142,7 @@ class Payment extends Component {
   }
 
   render() {
-    const { classes, shippingInfoFormData, orderId, createShippingInfo} = this.props;
+    const { classes, shippingInfoFormData, orderId, createShippingInfo, creditCardInfo} = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
 
@@ -170,6 +170,7 @@ class Payment extends Component {
     };
 
     const updateShippingInfo = () => {
+      // Validate shipping info
       if(!shippingInfoFormData.firstname 
           || !shippingInfoFormData.lastname
           || !shippingInfoFormData.email
@@ -180,9 +181,26 @@ class Payment extends Component {
             return;
           }
       
-      // alert('Invalid form data!');
-        
-      createShippingInfo(orderId, shippingInfoFormData);
+      // Validate credit card info
+      if(!creditCardInfo.cardnumber
+          || !creditCardInfo.cardname
+          || !creditCardInfo.expiry
+          || !creditCardInfo.cvc) {
+            return;
+          }
+      
+      let paymentPayload = {};
+
+      paymentPayload.cardNumber = creditCardInfo.cardNumber;
+      paymentPayload.name = creditCardInfo.cardname; 
+      paymentPayload.expiry = creditCardInfo.expiry;
+      paymentPayload.cvv = creditCardInfo.cvc;
+
+
+      createShippingInfo(orderId, shippingInfoFormData, {
+        paymentType: 'CCC',
+        creditCard: paymentPayload
+      });
     }
 
 
