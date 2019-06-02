@@ -2,7 +2,7 @@ import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
 
-// ------ Shopping Cart Item Actions ------
+// ------ Shopping cart item actions ------
 export const addCartItemSuccess = (result) => {
   return {
     type: ActionType.ADD_CART_ITEM_FULLFILLED,
@@ -78,11 +78,12 @@ export const fetchingProductInfo = () => {
   }
 }
 
-export const fetchingProductInfoError = (err) => {
+export const fetchingProductInfoError = (error) => {
   return {
     type: ActionType.FETCHING_PRODUCT_INFO_REJECTED,
     isFetchingProductInfo: false,
-    isFetchedProductInfo: true
+    isFetchedProductInfo: true,
+    error: error
   }
 }
 
@@ -102,6 +103,7 @@ export const fetchProductInfo = (productId) => {
         dispatch(receieveProductInfo(response.data));
       },
       failureCallback: (error) => {
+        console.log(error);
         dispatch(fetchingProductInfoError(error));
       }
     });

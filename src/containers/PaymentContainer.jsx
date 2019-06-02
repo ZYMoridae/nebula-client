@@ -22,7 +22,7 @@ const mapStateToProps = state => {
     isCreatingShippingInfo: state.PaymentReducer.isCreatingShippingInfo,
     isCreatedShippingInfo: state.PaymentReducer.isCreatedShippingInfo,
     shippingInfoFormData: state.PaymentReducer.shippingInfoFormData,
-    creditCardInfo: state.PaymentReducer.creditCardInfo    
+    creditCardInfo: state.PaymentReducer.creditCardInfo
   }
 }
 

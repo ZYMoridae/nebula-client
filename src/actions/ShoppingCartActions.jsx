@@ -2,7 +2,7 @@ import Zjax from '../utils/zjax';
 import Utils from '../utils/Utils';
 import ActionType from './ActionType';
 
-// -------- Shopping Cart Actions ----------
+// -------- Shopping cart actions ----------
 export const receieveShoppingCart = (results) => {
   return {
     type: ActionType.RECEIVE_SHOPPINGCART,
@@ -50,6 +50,8 @@ export const fetchShoppingCartInfo = () => {
     });
   }
 }
+
+// ------ Processing shopping cart ------
 
 export const proceedShoppingCart = (cartItems) => {
   return {

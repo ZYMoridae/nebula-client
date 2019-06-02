@@ -20,6 +20,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import NebulaIcon from '../components/NebulaIcon';
 import Routes from '../utils/Routes';
 
+import ProductSearchComponent from '../components/ProductSearchComponent';
+
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -64,16 +67,18 @@ const styles = theme => ({
   inputRoot: {
     color: 'inherit',
     width: '100%',
+    height: '100%'
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 10,
+    height: '100%',
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: 200,
+      width: theme.spacing.unit * 40,
     },
   },
   sectionDesktop: {
@@ -94,8 +99,59 @@ const styles = theme => ({
   },
   myAppBar: {
     zIndex: theme.zIndex.drawer + 1,
+  },
+  loginButton: {
+    color: 'white'
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing.unit * 2,
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 7,
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  notificationBadge: {
+    '& > span': {
+      backgroundColor: '#9a3300'
+    }
   }
 });
+
+
+const renderLoginButton = (props) => {
+  const { classes } = props;
+
+  let block = '';
+
+  if (location.pathname !== Routes.USER.LOGIN) {
+    block = <div className={classes.sectionDesktop}>
+      <Typography variant="button" color="inherit" noWrap>
+        <a href={Routes.USER.LOGIN} className={classes.homeButton}>
+          Login
+      </a>
+      </Typography>
+    </div>;
+  }
+
+  return block;
+}
 
 class PrimarySearchAppBar extends React.Component {
   componentWillMount() {
@@ -113,16 +169,16 @@ class PrimarySearchAppBar extends React.Component {
     this.handleProfileMenuOpen = event => {
       this.setState({ anchorEl: event.currentTarget });
     };
-  
+
     this.handleMenuClose = () => {
       this.setState({ anchorEl: null });
       this.handleMobileMenuClose();
     };
-  
+
     this.handleMobileMenuOpen = event => {
       this.setState({ mobileMoreAnchorEl: event.currentTarget });
     };
-  
+
     this.handleMobileMenuClose = () => {
       this.setState({ mobileMoreAnchorEl: null });
     };
@@ -133,7 +189,7 @@ class PrimarySearchAppBar extends React.Component {
       location.href = Routes.USER.LOGIN;
     }
   }
- 
+
   render() {
     const { anchorEl, mobileMoreAnchorEl, isUserLogin } = this.state;
     const { classes } = this.props;
@@ -193,7 +249,7 @@ class PrimarySearchAppBar extends React.Component {
 
       </Menu>
     );
-    
+
     const cartIconButtonClickHandler = (event) => {
       window.location.href = '/cart';
     }
@@ -205,7 +261,6 @@ class PrimarySearchAppBar extends React.Component {
             {isUserLogin ? <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton> : ''}
-
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               <Toolbar>
                 <NebulaIcon />
@@ -229,32 +284,45 @@ class PrimarySearchAppBar extends React.Component {
               />
             </div> */}
             <div className={classes.grow} />
-            {isUserLogin ? 
-            <div className={classes.sectionDesktop}>
-              <IconButton color="inherit" onClick={cartIconButtonClickHandler}>
-                <ShoppingCartIcon />
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={(e) => {this.handleProfileMenuOpen(e)}}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </div> : ''}
-              {isUserLogin ?
+            {isUserLogin ?
+              <div className={classes.sectionDesktop}>
+                <ProductSearchComponent />
+                            {/* <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+            </div> */}
+                <IconButton color="inherit" onClick={cartIconButtonClickHandler}>
+                  <ShoppingCartIcon />
+                </IconButton>
+                <IconButton color="inherit">
+                  <Badge badgeContent={1} color="primary" className={classes.notificationBadge}>
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={(e) => { this.handleProfileMenuOpen(e) }}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div> : renderLoginButton(this.props)}
+            {isUserLogin ?
               <div className={classes.sectionMobile}>
-                <IconButton aria-haspopup="true" onClick={(e) => {this.handleMobileMenuOpen(e)}} color="inherit">
+                <IconButton aria-haspopup="true" onClick={(e) => { this.handleMobileMenuOpen(e) }} color="inherit">
                   <MoreIcon />
                 </IconButton>
               </div> : ''
-              }
+            }
           </Toolbar>
         </AppBar>
         {renderMenu}

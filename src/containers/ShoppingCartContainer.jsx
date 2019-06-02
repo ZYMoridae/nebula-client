@@ -2,19 +2,24 @@ import { connect } from 'react-redux';
 import {
   fetchShoppingCartInfo,
   proceedShoppingCart,
-  createOrder
+  createOrder,
+  deleteShoppingCartItem
 } from '../actions';
 import ShoppingCart from '../components/ShoppingCart';
 
 const mapStateToProps = state => {
   return {
     info: state.ShoppingCartReducer.info,
-    isFetchingProductCategory: state.ShoppingCartReducer.isFetchingProductCategory,
-    isFetchedProductCategory: state.ShoppingCartReducer.isFetchedProductCategory,
+    isFetchingShoppingCart: state.ShoppingCartReducer.isFetchingShoppingCart,
+    isFetchedShoppingCart: state.ShoppingCartReducer.isFetchedShoppingCart,
     isCreatingOrder: state.ShoppingCartReducer.isCreatingOrder,
     isCreatedOrder: state.ShoppingCartReducer.isCreatedOrder,
     orderCreationError: state.ShoppingCartReducer.orderCreationError,
-    orderInfo: state.ShoppingCartReducer.orderInfo
+    orderInfo: state.ShoppingCartReducer.orderInfo,
+    cartItemDeletedInfo: state.ShoppingCartReducer.cartItemDeletedInfo,
+    isDeletingShoppingCartItem: state.ShoppingCartReducer.isDeletingShoppingCartItem,
+    isDeletedShoppingCartItem: state.ShoppingCartReducer.isDeletedShoppingCartItem,
+    cartItemDeletingError: state.ShoppingCartReducer.cartItemDeletingError
   }
 }
 
@@ -29,6 +34,9 @@ const mapDispatchToProps = dispatch => {
     },
     createOrder: (data) => {
       dispatch(createOrder(data));
+    },
+    deleteShoppingCartItem: (id) => {
+      dispatch(deleteShoppingCartItem(id));
     }
   }
 }

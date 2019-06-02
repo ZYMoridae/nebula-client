@@ -63,6 +63,9 @@ const styles = theme => ({
   loginButton: {
     marginTop: theme.spacing.unit * 2
   },
+  newUserButton: {
+    marginTop: theme.spacing.unit * 2
+  },
   accountIcon: {
     verticalAlign: 'middle',
     marginRight: theme.spacing.unit,
@@ -122,7 +125,6 @@ class Login extends Component {
         }
       }));
     }
-
   }
 
   render() {
@@ -200,6 +202,11 @@ class Login extends Component {
                   <Button variant="contained" color="primary" size="large" fullWidth={true} className={classes.loginButton} type="submit">
                     Login
                   </Button>
+                </Grid>
+                <Grid>
+                  <Typography variant="caption" gutterBottom className={classes.newUserButton}>
+                    No account? <a href='/'>Create one!</a>
+                  </Typography>
                 </Grid>
               </Paper>
             </Grid>

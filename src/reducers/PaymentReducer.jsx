@@ -73,19 +73,19 @@ const paymentReducer = (state = initState, action) => {
         shippingInfo: action.info
       })
     case ActionType.CREATING_SHIPPINGINFO_PENDING:
-        return Object.assign({}, state, {
-          isCreatingShippingInfo: action.isCreatingShippingInfo,
-          isCreatedShippingInfo: action.isCreatedShippingInfo
-        }) 
+      return Object.assign({}, state, {
+        isCreatingShippingInfo: action.isCreatingShippingInfo,
+        isCreatedShippingInfo: action.isCreatedShippingInfo
+      })
     case ActionType.CREATING_SHIPPINGINFO_REJECTED:
-        return Object.assign({}, state, {
-          isCreatingShippingInfo: action.isCreatingShippingInfo,
-          isCreatedShippingInfo: action.isCreatedShippingInfo
-        })
+      return Object.assign({}, state, {
+        isCreatingShippingInfo: action.isCreatingShippingInfo,
+        isCreatedShippingInfo: action.isCreatedShippingInfo
+      })
     case ActionType.SHIPPING_INFO_FORM_INPUT_CHANGED:
-        return Object.assign({}, state, {
-          shippingInfoFormData: action.info
-        })           
+      return Object.assign({}, state, {
+        shippingInfoFormData: action.info
+      })
     default:
       return state
   }

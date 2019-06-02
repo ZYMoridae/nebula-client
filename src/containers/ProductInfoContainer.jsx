@@ -12,6 +12,7 @@ const mapStateToProps = state => {
     info: state.ProductInfoReducer.info,
     isFetchingProductInfo: state.ProductInfoReducer.isFetchingProductInfo,
     isFetchedProductInfo: state.ProductInfoReducer.isFetchedProductInfo,
+    fetchProductInfoError: state.ProductInfoReducer.fetchProductInfoError,
     isAddedCartItem: state.ProductInfoReducer.isAddedCartItem,
     isAddingCartItem: state.ProductInfoReducer.isAddingCartItem,
     isShowSuccessToast: state.ProductInfoReducer.isShowSuccessToast,

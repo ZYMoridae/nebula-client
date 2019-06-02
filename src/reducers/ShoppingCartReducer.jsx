@@ -8,7 +8,11 @@ let initState = {
   isCreatingOrder: false,
   isCreatedOrder: false,
   orderCreationError: null,
-  orderInfo: null
+  orderInfo: null,
+  cartItemDeletedInfo: null,
+  isDeletingShoppingCartItem: false,
+  isDeletedShoppingCartItem: false,
+  cartItemDeletingError: null
 }
 const shoppingCartReducer = (state = initState, action) => {
   switch (action.type) {
@@ -48,7 +52,30 @@ const shoppingCartReducer = (state = initState, action) => {
         isCreatingOrder: action.isCreatingOrder,
         isCreatedOrder: action.isCreatedOrder,
         orderInfo: action.info
-      })      
+      })
+    case ActionType.DELETING_SHOPPING_CART_ITEM_PENDING:
+      return Object.assign({}, state, {
+        isDeletingShoppingCartItem: action.isDeletingShoppingCartItem,
+        isDeletedShoppingCartItem: action.isDeletedShoppingCartItem
+      })
+    case ActionType.DELETING_SHOPPING_CART_ITEM_REJECTED:
+      return Object.assign({}, state, {
+        isDeletingShoppingCartItem: action.isDeletingShoppingCartItem,
+        isDeletedShoppingCartItem: action.isDeletedShoppingCartItem,
+        cartItemDeletingError: action.error
+      })
+    case ActionType.DELETED_SHOPPING_CART_ITEM: {
+      let deletedShoppingCartItemId = action.shoppingCartItemId;
+      let _cartItems = state.info;
+
+      _cartItems = _cartItems.filter(item => item.id !== deletedShoppingCartItemId);
+
+      return Object.assign({}, state, {
+        isDeletingShoppingCartItem: action.isDeletingShoppingCartItem,
+        isDeletedShoppingCartItem: action.isDeletedShoppingCartItem,
+        info: _cartItems
+      })
+    }
     default:
       return state
   }

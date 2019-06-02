@@ -33,7 +33,7 @@ export const paymentError = (err) => {
 export const doPayment = (creditCardInfo) => {
   return function (dispatch) {
     dispatch(paymentPending());
-    
+
     let options = {
       method: 'post',
       data: creditCardInfo

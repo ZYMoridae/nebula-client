@@ -12,14 +12,14 @@ class PaymentOrder extends Component {
 
   calculateTotalAmount(orderItems) {
     return orderItems.map(orderItem => orderItem.quantity * orderItem.product.price)
-            .reduce((total, sum) => total + sum, 0);
+      .reduce((total, sum) => total + sum, 0);
   }
 
   render() {
     const { classes, info, activateOrder } = this.props;
 
     let totalAmount = 0;
-    if(activateOrder && activateOrder.orderItems) {
+    if (activateOrder && activateOrder.orderItems) {
       totalAmount = this.calculateTotalAmount(activateOrder.orderItems);
     }
 
@@ -32,9 +32,7 @@ class PaymentOrder extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  Item
-                  </TableCell>
+                <TableCell>Item</TableCell>
                 <TableCell align="right">Price</TableCell>
                 <TableCell align="right">Quantity</TableCell>
               </TableRow>
@@ -50,11 +48,11 @@ class PaymentOrder extends Component {
 
             </TableBody>
           </Table>
-          <Typography variant="h6" gutterBottom align="right" style={{color: '#ff5000', marginTop: '10px'}}>
+          <Typography variant="h6" gutterBottom align="right" style={{ color: '#ff5000', marginTop: '10px' }}>
             Total Amount:
-              <span style={{marginLeft: '5px'}}>
-                ${totalAmount.toFixed(2)}
-              </span>
+              <span style={{ marginLeft: '5px' }}>
+              ${totalAmount.toFixed(2)}
+            </span>
           </Typography>
         </Paper>
       </div>

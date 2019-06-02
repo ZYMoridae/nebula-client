@@ -3,6 +3,7 @@ import ActionType from '../actions/ActionType';
 let initState = {
   isFetchingProductInfo: false,
   isFetchedProductInfo: false,
+  fetchProductInfoError: undefined,
   isAddedCartItem: false,
   isAddingCartItem: false,
   isShowSuccessToast: false,
@@ -17,7 +18,8 @@ const productInfoReducer = (state = initState, action) => {
     case ActionType.FETCHING_PRODUCT_INFO_REJECTED:
       return Object.assign({}, state, {
         isFetchedProductInfo: action.isFetchedProductInfo,
-        isFetchingProductInfo: action.isFetchingProductInfo
+        isFetchingProductInfo: action.isFetchingProductInfo,
+        fetchProductInfoError: action.error
       })
     case ActionType.FETCHING_PRODUCT_INFO_PENDING:
       return Object.assign({}, state, {

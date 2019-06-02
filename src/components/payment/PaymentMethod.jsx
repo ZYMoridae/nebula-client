@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 class PaymentMethod extends Component {
 
@@ -32,15 +32,15 @@ class PaymentMethod extends Component {
       let _inputValues = creditCardInfo;
       let value = event.target.value;
 
-      if(event.target.name == 'cardnumber') {
+      if (event.target.name == 'cardnumber') {
         value = value.substring(0, 16);
       }
 
-      if(event.target.name == 'expiry') {
+      if (event.target.name == 'expiry') {
         value = value.substring(0, 4);
       }
 
-      if(event.target.name == 'cvc') {
+      if (event.target.name == 'cvc') {
         value = value.substring(0, 3);
       }
 
@@ -114,7 +114,7 @@ class PaymentMethod extends Component {
                     fullWidth={true}
                     onChange={handleChange}
                     type="number"
-                    inputProps={{min: "0", max: "9999"}}
+                    inputProps={{ min: "0", max: "9999" }}
                   />
 
                 </Grid>

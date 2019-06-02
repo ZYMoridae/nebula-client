@@ -35,6 +35,8 @@ import ProductCategorySideBarContainer from '../containers/ProductCategorySideBa
 
 import ProductComments from './ProductComments';
 
+import ContentNotFound from './utils/ContentNotFound';
+import { isValid } from 'ipaddr.js';
 
 const styles = theme => ({
   container: {
@@ -49,13 +51,16 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
   },
   button: {
-    backgroundColor: '#f9cd66',
+    backgroundColor: '#00B3A0',
     transition: 'all 0.3s',
     marginTop: theme.spacing.unit,
     maringRight: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    color: 'white',
     '&:hover': {
-      backgroundColor: '#f2b21d',
+      backgroundColor: '#00877C',
       transition: 'all 0.3s'
     }
   },
@@ -76,6 +81,77 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit
   }
 });
+
+
+const renderProductNotFoundBlock = () => {
+  return (
+    <ContentNotFound />
+  )
+}
+
+const renderProductMetas = (productMetas, theme, classes) => {
+  let block = ''
+  let isDataValid = true;
+
+  if (productMetas == undefined || !Array.isArray(productMetas)) {
+    isDataValid = false;
+    block = <ContentNotFound warningText="Product metas was unavailable!" paddingTop={theme.spacing.unit * 5} paddingBottom={theme.spacing.unit * 5} />
+  } else {
+    block = <Paper>
+      <Table className={classes.table}>
+        <TableBody>
+          {productMetas.map((meta, index) => (
+            <TableRow key={index}>
+              <TableCell component="th" scope="row" className={classes.tableKey}>
+                {meta.key}
+              </TableCell>
+              <TableCell align="right">{meta.value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>;
+  }
+
+  return (
+    <Grid item xs={12} sm={isDataValid ? 6 : 12}>
+      <Typography variant="h6" gutterBottom>
+        Product Information
+    </Typography>
+      {block}
+    </Grid>
+  );
+}
+
+const renderCustomerReviews = (productComments, theme, classes) => {
+  // return '123';
+  console.log(productComments)
+  let block = '';
+  let isDataValid = true;
+
+  if (productComments == undefined 
+      || !Array.isArray(productComments)
+      || (Array.isArray(productComments) && productComments.length === 0)) {
+    isDataValid = false;
+    block = <ContentNotFound warningText="No customer reviews!" paddingTop={theme.spacing.unit * 5} paddingBottom={theme.spacing.unit * 5} />
+  } else {
+    block = <div>
+      {productComments.map((productComment, index) =>
+        <ProductComments key={index} comment={productComment} deepIndex={1}></ProductComments>
+      )}
+    </div>;
+  }
+
+  return (
+    <Grid item xs={12} sm={isDataValid ? 6 : 12}>
+      <Typography variant="h6" gutterBottom>
+        Customer Reviews
+      </Typography>
+      {block}
+    </Grid>
+  );
+}
+
 
 class ProductInfo extends Component {
   constructor() {
@@ -100,8 +176,8 @@ class ProductInfo extends Component {
 
 
   render() {
-    const { classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments, isAddingCartItem } = this.props;
-    
+    const { theme, classes, info, addCartItem, isShowSuccessToast, hideSuccessToast, productComments, isAddingCartItem, fetchProductInfoError } = this.props;
+
     let maxQuantity = 20;
 
     if (info.unitsInStock != undefined && info.unitsInStock > 0 && info.unitsInStock < 20) {
@@ -121,7 +197,20 @@ class ProductInfo extends Component {
       });
     }
 
+    // TODO: Change product images gallery source
     const images = [
+      {
+        original: 'https://upserve.com/media/sites/2/Ledger-Restaurant-Bar-brunch_Photo-courtesy-of-Ledger-1024x768.jpg',
+        thumbnail: 'https://upserve.com/media/sites/2/Ledger-Restaurant-Bar-brunch_Photo-courtesy-of-Ledger-1024x768.jpg',
+      },
+      {
+        original: 'http://www.fabfoodchicago.com/wp-content/uploads/2017/05/IMG_4980-1024x768.jpg',
+        thumbnail: 'http://www.fabfoodchicago.com/wp-content/uploads/2017/05/IMG_4980-1024x768.jpg'
+      },
+      {
+        original: 'http://www.hofbrauhaus.com.au/wp-content/uploads/2019/03/Farmer-Breakfast-1024x768.jpg',
+        thumbnail: 'http://www.hofbrauhaus.com.au/wp-content/uploads/2019/03/Farmer-Breakfast-1024x768.jpg'
+      },
       {
         original: 'https://upserve.com/media/sites/2/Ledger-Restaurant-Bar-brunch_Photo-courtesy-of-Ledger-1024x768.jpg',
         thumbnail: 'https://upserve.com/media/sites/2/Ledger-Restaurant-Bar-brunch_Photo-courtesy-of-Ledger-1024x768.jpg',
@@ -137,6 +226,83 @@ class ProductInfo extends Component {
     ]
 
     let quantityArray = [...Array(maxQuantity).keys()].map(item => ++item);
+
+    let productInfoBlock = '';
+
+    if (fetchProductInfoError != undefined) {
+      productInfoBlock = renderProductNotFoundBlock();
+    } else {
+      productInfoBlock = <div>
+        <Grid container spacing={40}>
+          <Grid item xs={12} sm={6}>
+            {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
+            <ImageGallery items={images} showNav={false} showPlayButton={false} autoPlay={true} lazyLoad={true} useBrowserFullscreen={false} />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.metaContainer}>
+              <Typography variant="h6" gutterBottom>
+                {_.capitalize(info.name)}
+              </Typography>
+              {info.vendor && <Typography variant="caption" gutterBottom>
+                by {_.capitalize(info.vendor.username)}
+              </Typography>}
+
+              <Typography variant="subtitle1" gutterBottom>
+                Price:
+                <span className={classes.priceCaption}>
+                  ${_.capitalize(info.price)}
+                </span>
+              </Typography>
+              <div>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel
+                    ref={ref => {
+                      this.InputLabelRef = ref;
+                    }}
+                    htmlFor="outlined-age-simple"
+                  >
+                    Quantity
+                  </InputLabel>
+                  <Select
+                    value={this.state.quantity}
+                    onChange={itemQuantityChangeHandler}
+                    input={
+                      <OutlinedInput
+                        labelWidth={this.state.labelWidth}
+                        name="quantity"
+                        id="outlined-age-simple"
+                      />
+                    }
+                  >
+                    {
+                      quantityArray.map((item, index) =>
+                        <MenuItem key={index} value={item}>{item}</MenuItem>
+                      )
+                    }
+                  </Select>
+                </FormControl>
+              </div>
+              <div>
+                <Button variant="contained" className={classes.button} disabled={isAddingCartItem} fullWidth={true} onClick={() => { addCartButtonClickHandler() }}>
+                  <ShoppingCart className={classes.leftIcon} />
+                  Add to cart
+                </Button>
+              </div>
+              <div>
+                <Button variant="contained" className={classes.button} fullWidth={true}>
+                  <PlayCircleOutline className={classes.leftIcon} />
+                  Buy now
+                </Button>
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+        <Divider className={classes.divider} />
+        {info.productMetas && renderProductMetas(info.productMetas, theme, classes)}
+        <Divider className={classes.divider} />
+        {renderCustomerReviews(productComments, theme, classes)}
+      </div>;
+    }
 
     return (
       <div>
@@ -157,115 +323,25 @@ class ProductInfo extends Component {
         </Snackbar>
 
         {!info && <CircularProgress />}
-        {info &&
-          <Fade in={true} timeout={1000}>
-            <Grid container >
-              <Grid item xs={1} sm={2}>
-                {/* <ProductCategorySideBarContainer></ProductCategorySideBarContainer> */}
-              </Grid>
 
-              <Grid item xs={10} sm={8} className={classes.container}>
-                <Grid container spacing={40}>
-                  <Grid item xs={12} sm={6}>
-                    {/* <Image imageStyle={{width: '100%', height: 'auto'}} src="http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"/> */}
-                    <ImageGallery items={images} showNav={false} showPlayButton={false} autoPlay={true} lazyLoad={true} useBrowserFullscreen={false} />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <div className={classes.metaContainer}>
-                      <Typography variant="h6" gutterBottom>
-                        {_.capitalize(info.name)}
-                      </Typography>
-                      {info.vendor && <Typography variant="caption" gutterBottom>
-                        by {_.capitalize(info.vendor.username)}
-                      </Typography>}
-
-                      <Typography variant="subtitle1" gutterBottom>
-                        Price:
-                        <span className={classes.priceCaption}>
-                          ${_.capitalize(info.price)}
-                        </span>
-                      </Typography>
-                      <div>
-                        <FormControl variant="outlined" className={classes.formControl}>
-                          <InputLabel
-                            ref={ref => {
-                              this.InputLabelRef = ref;
-                            }}
-                            htmlFor="outlined-age-simple"
-                          >
-                            Quantity
-                        </InputLabel>
-                          <Select
-                            value={this.state.quantity}
-                            onChange={itemQuantityChangeHandler}
-                            input={
-                              <OutlinedInput
-                                labelWidth={this.state.labelWidth}
-                                name="quantity"
-                                id="outlined-age-simple"
-                              />
-                            }
-                          >
-                            {
-                              quantityArray.map((item, index) =>
-                                <MenuItem key={index} value={item}>{item}</MenuItem>
-                              )
-                            }
-                          </Select>
-                        </FormControl>
-                      </div>
-                      <div>
-                        <Button variant="contained" className={classes.button} disabled={isAddingCartItem} fullWidth={true} onClick={() => { addCartButtonClickHandler() }}>
-                          <ShoppingCart className={classes.leftIcon} />
-                          Add to cart
-                      </Button>
-                      </div>
-                      <div>
-                        <Button variant="contained" className={classes.button} fullWidth={true}>
-                          <PlayCircleOutline className={classes.leftIcon} />
-                          Buy now
-                      </Button>
-                      </div>
-                    </div>
-                  </Grid>
-                </Grid>
-                <Divider className={classes.divider} />
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="h6" gutterBottom>
-                    Product Information
-                </Typography>
-                  <Paper>
-                    <Table className={classes.table}>
-                      <TableBody>
-                        {info.productMetas && info.productMetas.map((meta, index) => (
-                          <TableRow key={index}>
-                            <TableCell component="th" scope="row" className={classes.tableKey}>
-                              {meta.key}
-                            </TableCell>
-                            <TableCell align="right">{meta.value}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Paper>
-                </Grid>
-                <Divider className={classes.divider} />
-                <Grid item xs={12}>
-                  <Typography variant="h6" gutterBottom>
-                    Customer Reviews
-                </Typography>
-                  <div>
-                    {productComments && productComments.map((productComment, index) =>
-                      <ProductComments key={index} comment={productComment} deepIndex={1}></ProductComments>
-                    )}
-                  </div>
-                </Grid>
-              </Grid>
-              <Grid item xs={1} sm={2}>
-
-              </Grid>
+        <Fade in={true} timeout={1000}>
+          <Grid container >
+            <Grid item xs={1} sm={2}>
+              {/* <ProductCategorySideBarContainer></ProductCategorySideBarContainer> */}
             </Grid>
-          </Fade>}
+
+            <Grid item xs={10} sm={8} className={classes.container}>
+              {info && productInfoBlock}
+            </Grid>
+            <Grid item xs={1} sm={2}>
+
+            </Grid>
+          </Grid>
+        </Fade>
+
+
+
+
 
       </div>
     )
@@ -273,4 +349,4 @@ class ProductInfo extends Component {
 }
 
 
-export default withStyles(styles)(ProductInfo);
+export default withStyles(styles, { withTheme: true })(ProductInfo);
