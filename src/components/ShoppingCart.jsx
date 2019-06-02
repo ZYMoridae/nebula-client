@@ -192,7 +192,7 @@ const renderLoadingIndicator = (isFetchedShoppingCart) => {
   return (
     <Fade in={!isFetchedShoppingCart} timeout={1000}>
       <ContentLoader
-        height={170}
+        height={80}
         width={400}
         speed={2}
         primaryColor="#f3f3f3"
