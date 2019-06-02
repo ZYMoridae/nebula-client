@@ -39,13 +39,9 @@ const nebulaTheme = createMuiTheme({
     secondary: {
       light: '#0066ff',
       // main: '#0044ff',
-      main: '#00B3A0',
       // dark: will be calculated from palette.secondary.main,
       contrastText: '#ffcc00',
     }
-    // tertiary : {
-    //   main: '#00B3A0'
-    // }
     // error: will use the default color
   },
 });
