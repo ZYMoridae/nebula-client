@@ -21,7 +21,7 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^2.1.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "material-ui": "^1.0.0-beta.47",
     "material-ui-flat-pagination": "^3.2.0",
     "material-ui-image": "^3.1.0",
